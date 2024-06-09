@@ -95,6 +95,8 @@ namespace PLinView
         byte Sig_SPS_2L_SecRwStBkReclnDnwdSwActv = 0;
         byte Sig_SPS_2L_SecRwStLgrstUpwdSwActv = 0;
         byte Sig_SPS_2L_SecRwStLgrstDnwdSwActv = 0;
+        byte Sig_SPS_2L_SecRwStLgextUpwdSwActv = 0;
+        byte Sig_SPS_2L_SecRwStLgextDnwdSwActv = 0;
         byte Sig_SPS_2L_SecRwStLmbrFrwdSwActv = 0;
         byte Sig_SPS_2L_SecRwStLmbrBkwdSwActv = 0;
         byte Sig_SPS_2L_SecRwStLmbrUpwdSwActv = 0;
@@ -106,6 +108,8 @@ namespace PLinView
         byte Sig_SPS_2R_SecRwStBkReclnDnwdSwActv = 0;
         byte Sig_SPS_2R_SecRwStLgrstUpwdSwActv = 0;
         byte Sig_SPS_2R_SecRwStLgrstDnwdSwActv = 0;
+        byte Sig_SPS_2R_SecRwStLgextUpwdSwActv = 0;
+        byte Sig_SPS_2R_SecRwStLgextDnwdSwActv = 0;
         byte Sig_SPS_2R_SecRwStLmbrFrwdSwActv = 0;
         byte Sig_SPS_2R_SecRwStLmbrBkwdSwActv = 0;
         byte Sig_SPS_2R_SecRwStLmbrUpwdSwActv = 0;
@@ -1361,67 +1365,72 @@ namespace PLinView
 
 
             /********Msg for E16Msg_Subscriber**************/
+            /* DR Seat */
+            Publisher[SPS_DR_Req_MSG_Index].FrameId = 0xB1;
+            Publisher[SPS_DR_Req_MSG_Index].Length = 5;
+            Publisher[SPS_DR_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
+            Publisher[SPS_DR_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
+            Publisher[SPS_DR_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
             tLINFrameEntry[SPS_DR_Req_MSG_Index].FrameId = 0x31;
             tLINFrameEntry[SPS_DR_Req_MSG_Index].Length = 5;
             tLINFrameEntry[SPS_DR_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_DR_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             tLINFrameEntry[SPS_DR_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
-            
-            Publisher[SPS_DR_Req_MSG_Index].FrameId = 0xB1;
-            Publisher[SPS_DR_Req_MSG_Index].Length = 4;
-            Publisher[SPS_DR_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
-            Publisher[SPS_DR_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
-            Publisher[SPS_DR_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-
-            Publisher[SPS_CODR_Req_MSG_Index].FrameId = 0x97;
-            Publisher[SPS_CODR_Req_MSG_Index].Length = 0x04;
+            /* CODR Seat */
+            Publisher[SPS_CODR_Req_MSG_Index].FrameId = 0xCF;
+            Publisher[SPS_CODR_Req_MSG_Index].Length = 5;
             Publisher[SPS_CODR_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             Publisher[SPS_CODR_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             Publisher[SPS_CODR_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-            tLINFrameEntry[SPS_CODR_Req_MSG_Index].FrameId = 0x17;
+            tLINFrameEntry[SPS_CODR_Req_MSG_Index].FrameId = 0x0F;
             tLINFrameEntry[SPS_CODR_Req_MSG_Index].Length = 5;
             tLINFrameEntry[SPS_CODR_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_CODR_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             tLINFrameEntry[SPS_CODR_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
 
+            /* 2L Seat */
             Publisher[SPS_2L_Req_MSG_Index].FrameId = 0x61;
-            Publisher[SPS_2L_Req_MSG_Index].Length = 5;
+            Publisher[SPS_2L_Req_MSG_Index].Length = 8;
             Publisher[SPS_2L_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             Publisher[SPS_2L_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             Publisher[SPS_2L_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
             tLINFrameEntry[SPS_2L_Req_MSG_Index].FrameId = 0x21;
-            tLINFrameEntry[SPS_2L_Req_MSG_Index].Length = 0x05;
+            tLINFrameEntry[SPS_2L_Req_MSG_Index].Length = 8;
             tLINFrameEntry[SPS_2L_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_2L_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             tLINFrameEntry[SPS_2L_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
 
-            Publisher[SPS_2R_Req_MSG_Index].FrameId = 0x11;
-            Publisher[SPS_2R_Req_MSG_Index].Length = 5;
+            /* 2R Seat */
+            Publisher[SPS_2R_Req_MSG_Index].FrameId = 0x17;
+            Publisher[SPS_2R_Req_MSG_Index].Length = 8;
             Publisher[SPS_2R_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             Publisher[SPS_2R_Req_MSG_Index].ChecksumType =  Peak.Lin.TLINChecksumType.cstEnhanced;
             Publisher[SPS_2R_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-            tLINFrameEntry[SPS_2R_Req_MSG_Index].FrameId = 0x11;
-            tLINFrameEntry[SPS_2R_Req_MSG_Index].Length = 0x05;
+            tLINFrameEntry[SPS_2R_Req_MSG_Index].FrameId = 0x17;
+            tLINFrameEntry[SPS_2R_Req_MSG_Index].Length = 8;
             tLINFrameEntry[SPS_2R_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_2R_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             tLINFrameEntry[SPS_2R_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
 
-            Publisher[SPS_3L_Req_MSG_Index].FrameId = 0x55;
+            /* 3L Seat */
+            Publisher[SPS_3L_Req_MSG_Index].FrameId = 0x8B;
             Publisher[SPS_3L_Req_MSG_Index].Length = 3;
             Publisher[SPS_3L_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             Publisher[SPS_3L_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             Publisher[SPS_3L_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-            tLINFrameEntry[SPS_3L_Req_MSG_Index].FrameId = 0x15;
-            tLINFrameEntry[SPS_3L_Req_MSG_Index].Length = 0x03;
+            tLINFrameEntry[SPS_3L_Req_MSG_Index].FrameId = 0x0B;
+            tLINFrameEntry[SPS_3L_Req_MSG_Index].Length = 3;
             tLINFrameEntry[SPS_3L_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_3L_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             tLINFrameEntry[SPS_3L_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
 
+            /* 3R Seat */
             Publisher[SPS_3R_Req_MSG_Index].FrameId = 0xE7;
             Publisher[SPS_3R_Req_MSG_Index].Length = 3;
             Publisher[SPS_3R_Req_MSG_Index].Direction  = Peak.Lin.TLINDirection.dirPublisher;
@@ -1429,7 +1438,7 @@ namespace PLinView
             Publisher[SPS_3R_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
             tLINFrameEntry[SPS_3R_Req_MSG_Index].FrameId = 0x27;
-            tLINFrameEntry[SPS_3R_Req_MSG_Index].Length = 0x03;
+            tLINFrameEntry[SPS_3R_Req_MSG_Index].Length = 3;
             tLINFrameEntry[SPS_3R_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_3R_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
             tLINFrameEntry[SPS_3R_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
@@ -3168,8 +3177,7 @@ namespace PLinView
                         Publisher[SPS_DR_Req_MSG_Index].Data[3] = (byte)((Sig_L_MasgOnOffCustSeltn) | (Sig_L_CushRrUpCustSeltn << 1) | (Sig_L_CushRrDwnCustSeltn << 2) | (Sig_L_StkSeatCustSeltnSts << 3) | (Sig_L_SeatCustSelnActSts << 4) | (Sig_L_ReclineFrwdCustSeltn << 5) | (Sig_L_ReclineRrwdCustSeltn << 6) | (Sig_L_LumbFrwdCustSeltn << 7));
                         Publisher[SPS_DR_Req_MSG_Index].Data[4] = (byte)((Sig_L_LumbRrwdCustSeltn) | (Sig_L_LumbUpCustSeltn << 1) | (Sig_L_LumbDwnCustSeltn << 2) | (Sig_L_StSwAuxCtlFltPrsnt << 3));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_DR_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, 0x31, 0, Publisher[SPS_DR_Req_MSG_Index].Length, Publisher[SPS_DR_Req_MSG_Index].Data);
-                        
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_DR_Req_MSG_Index].FrameId, 0, Publisher[SPS_DR_Req_MSG_Index].Length, Publisher[SPS_DR_Req_MSG_Index].Data);   
                     }
                     break;
                 case 1:
@@ -3180,7 +3188,7 @@ namespace PLinView
                         Publisher[SPS_CODR_Req_MSG_Index].Data[3] = (byte)((Sig_R_MasgOnOffCustSeltn) | (Sig_R_CushRrUpCustSeltn << 1) | (Sig_R_CushRrDwnCustSeltn << 2) | (Sig_R_StkSeatCustSeltnSts << 3) | (Sig_R_SeatCustSelnActSts << 4) | (Sig_R_ReclineFrwdCustSeltn << 5) | (Sig_R_ReclineRrwdCustSeltn << 6) | (Sig_R_LumbFrwdCustSeltn << 7));
                         Publisher[SPS_CODR_Req_MSG_Index].Data[4] = (byte)((Sig_R_LumbRrwdCustSeltn) | (Sig_R_LumbUpCustSeltn << 1) | (Sig_R_LumbDwnCustSeltn << 2) | (Sig_R_StSwAuxCtlFltPrsnt << 3));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_CODR_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, 0x17, 0, Publisher[SPS_CODR_Req_MSG_Index].Length, Publisher[SPS_CODR_Req_MSG_Index].Data);
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_CODR_Req_MSG_Index].FrameId, 0, Publisher[SPS_CODR_Req_MSG_Index].Length, Publisher[SPS_CODR_Req_MSG_Index].Data);
                     }
                     break;
                 case 2:
@@ -3191,7 +3199,7 @@ namespace PLinView
                         Publisher[SPS_2L_Req_MSG_Index].Data[3] = (byte)((Sig_SPS_2L_SecRwStLmbrFrwdSwActv) | (Sig_SPS_2L_SecRwStLmbrBkwdSwActv << 1) | (Sig_SPS_2L_SecRwStLmbrUpwdSwActv << 2) | (Sig_SPS_2L_SecRwStLmbrDnwdSwActv << 3));
                         Publisher[SPS_2L_Req_MSG_Index].Data[4] = 0x0;
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_2L_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, 0x21, 0, Publisher[SPS_2L_Req_MSG_Index].Length, Publisher[SPS_2L_Req_MSG_Index].Data);
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_CODR_Req_MSG_Index].FrameId, 0, Publisher[SPS_2L_Req_MSG_Index].Length, Publisher[SPS_2L_Req_MSG_Index].Data);
                     }
                     break;
                 case 3:
@@ -3202,7 +3210,7 @@ namespace PLinView
                         Publisher[SPS_2R_Req_MSG_Index].Data[3] = (byte)((Sig_SPS_2R_SecRwStLmbrFrwdSwActv) | (Sig_SPS_2R_SecRwStLmbrBkwdSwActv << 1) | (Sig_SPS_2R_SecRwStLmbrUpwdSwActv << 2) | (Sig_SPS_2R_SecRwStLmbrDnwdSwActv << 3));
                         Publisher[SPS_2R_Req_MSG_Index].Data[4] = 0x0;
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_2R_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, 0x11, 0, Publisher[SPS_2R_Req_MSG_Index].Length, Publisher[SPS_2R_Req_MSG_Index].Data);
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_2R_Req_MSG_Index].FrameId, 0, Publisher[SPS_2R_Req_MSG_Index].Length, Publisher[SPS_2R_Req_MSG_Index].Data);
                     }
                     break;
                 case 4:
@@ -3211,7 +3219,7 @@ namespace PLinView
                         Publisher[SPS_3L_Req_MSG_Index].Data[1] = 0x0;
                         Publisher[SPS_3L_Req_MSG_Index].Data[2] = (byte)((Sig_SPS_3L_AcsMdExtRclSwActv) | (Sig_SPS_3L_ThdRStExpdSwActv << 1) | (Sig_SPS_3L_ThdRStFrwdSwActv << 2) | (Sig_SPS_3L_ThdRStBkwdSwActv << 3) | (Sig_SPS_3L_ThdRwStBkReclnUpwdSwActv << 4) | (Sig_SPS_3L_ThdRwStBkReclnDnwdSwActv << 5));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_3L_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, 0x15, 0, Publisher[SPS_3L_Req_MSG_Index].Length, Publisher[SPS_3L_Req_MSG_Index].Data);
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_3L_Req_MSG_Index].FrameId, 0, Publisher[SPS_3L_Req_MSG_Index].Length, Publisher[SPS_3L_Req_MSG_Index].Data);
                     }
                     break;
                 case 5:
@@ -3220,7 +3228,7 @@ namespace PLinView
                         Publisher[SPS_3R_Req_MSG_Index].Data[1] = 0x0;
                         Publisher[SPS_3R_Req_MSG_Index].Data[2] = (byte)((Sig_SPS_3R_AcsMdExtRtRclSwActv << 4) | (Sig_SPS_3R_ThdRRtStExpdSwActv << 5) | (Sig_SPS_3R_ThdRwRtStFrwdSwActv << 6) | (Sig_SPS_3R_ThdRwRtStBkwdSwActv << 7) | (Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv << 1) | (Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv << 2));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_3R_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, 0x27, 0, Publisher[SPS_3R_Req_MSG_Index].Length, Publisher[SPS_3R_Req_MSG_Index].Data);
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_3R_Req_MSG_Index].FrameId, 0, Publisher[SPS_3R_Req_MSG_Index].Length, Publisher[SPS_3R_Req_MSG_Index].Data);
                     }
                     break;
             }
@@ -4626,6 +4634,46 @@ namespace PLinView
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void L_CushOpenSeltn_CheckedChanged(object sender, EventArgs e)
+        {
+            /* TODO */
+        }
+
+        private void L_CushCloseSeltn_CheckedChanged(object sender, EventArgs e)
+        {
+            /* TODO */
+        }
+
+        private void R_CushOpenSeltn_CheckedChanged(object sender, EventArgs e)
+        {
+            /* TODO */
+        }
+
+        private void R_CushCloseSeltn_CheckedChanged(object sender, EventArgs e)
+        {
+            /* TODO */
+        }
+
+        private void Row1L_Heat_Req_CheckedChanged(object sender, EventArgs e)
+        {
+            /* TODO */
+        }
+
+        private void Row1L_Vent_Req_CheckedChanged(object sender, EventArgs e)
+        {
+            /* TODO */
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+             
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
         {
 
         }
