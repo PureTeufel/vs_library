@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="PLinView">
+</Property><Property Name="解决方案文件" Value="E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\PLinView.sln">
+</Property><Property Name="Date" Value="2012年3月2日星期五">
+</Property><Property Name="Time" Value="9:09">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="PLinView.sln" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\PLinView.sln">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="PLinView.csproj" Description="项目文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\PLinView.csproj">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="About_Dlg.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\About_Dlg.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="About_Dlg.Designer.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\About_Dlg.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Connect_Dlg.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Connect_Dlg.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Connect_Dlg.Designer.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Connect_Dlg.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Frame_Dlg.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Frame_Dlg.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Frame_Dlg.Designer.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Frame_Dlg.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="LIN_Impl.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\LIN_Impl.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Main_Wnd.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Main_Wnd.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Main_Wnd.Designer.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Main_Wnd.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="PLinApi.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\PLinApi.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Program.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Program.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Properties\AssemblyInfo.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Properties\Resources.Designer.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Properties\Settings.Designer.cs" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Properties\Settings.settings" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="ClassDiagram.cd" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\ClassDiagram.cd">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\Background.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\Background.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\RcvText.png" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\RcvText.png">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\XmtText.png" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\XmtText.png">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\ApplicationExit.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\ApplicationExit.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\Connect.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\Connect.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\FileNew.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\FileNew.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\FileOpen.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\FileOpen.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\FrameNew.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\FrameNew.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\LINReset.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\LINReset.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\FileSave.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\FileSave.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\FileSaveAs.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\FileSaveAs.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\HelpAbout.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\HelpAbout.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\HelpContents.bmp" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\HelpContents.bmp">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\PubText.png" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\PubText.png">
+</Event><Event ErrorLevel="2" Project="PLinView" Source="Resources\About.png" Description="未能将文件备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Resources\About.png">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="PLIN-View.ico" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\PLIN-View.ico">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="About_Dlg.resx" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\About_Dlg.resx">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Connect_Dlg.resx" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Connect_Dlg.resx">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Frame_Dlg.resx" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Frame_Dlg.resx">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Main_Wnd.resx" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Main_Wnd.resx">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="Properties\Resources.resx" Description="文件已成功备份为 E:\威特\PCAN\Develop\PC interfaces\Windows\PLIN-API\Sample\PLinView\Backup\Properties\Resources.resx">
+</Event><Event ErrorLevel="1" Project="PLinView" Source="PLinView.csproj" Description="您的项目以 .NET Framework 2.0 或 3.0 为目标。如果您的项目使用的程序集需要更新的 .NET Framework，则项目生成将失败。通过单击项目菜单上的“属性”，然后在“.NET Framework”下拉框中选择一个新版本，可以更改 .NET Framework 的版本。(在 Visual Basic 中，可在单击“高级编辑器选项...”按钮时显示的“编译”选项卡上找到此下拉框。)">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="PLinView.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="PLinView" Source="PLinView.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="PLinView.sln" Description="成功转换解决方案">
+</Event><Event ErrorLevel="3" Project="" Source="PLinView.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="PLinView" Source="PLinView.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event></UpgradeLog>

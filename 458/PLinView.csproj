@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6E55694C-57AD-4013-B179-3A62A091DAB8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PLinView</RootNamespace>
+    <AssemblyName>SGM458</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>PLIN-View.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About_Dlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About_Dlg.Designer.cs">
+      <DependentUpon>About_Dlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Connect_Dlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Connect_Dlg.Designer.cs">
+      <DependentUpon>Connect_Dlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frame_Dlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frame_Dlg.Designer.cs">
+      <DependentUpon>Frame_Dlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LIN_Impl.cs" />
+    <Compile Include="Main_Wnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main_Wnd.Designer.cs">
+      <DependentUpon>Main_Wnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCANBasic.cs" />
+    <Compile Include="Pcan_2isa.cs" />
+    <Compile Include="Pcan_2pcc.cs" />
+    <Compile Include="Pcan_2pci.cs" />
+    <Compile Include="Pcan_2usb.cs" />
+    <Compile Include="Pcan_dng.cs" />
+    <Compile Include="Pcan_dnp.cs" />
+    <Compile Include="Pcan_isa.cs" />
+    <Compile Include="Pcan_pcc.cs" />
+    <Compile Include="Pcan_pci.cs" />
+    <Compile Include="PLinApi.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="About_Dlg.resx">
+      <DependentUpon>About_Dlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Connect_Dlg.resx">
+      <DependentUpon>Connect_Dlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frame_Dlg.resx">
+      <DependentUpon>Frame_Dlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main_Wnd.resx">
+      <DependentUpon>Main_Wnd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Background.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RcvText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XmtText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ApplicationExit.bmp" />
+    <None Include="Resources\Connect.bmp" />
+    <None Include="Resources\FileNew.bmp" />
+    <None Include="Resources\FileOpen.bmp" />
+    <None Include="Resources\FrameNew.bmp" />
+    <None Include="Resources\LINReset.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FileSave.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FileSaveAs.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HelpAbout.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HelpContents.bmp" />
+    <None Include="Resources\PubText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PLIN-View.ico" />
+    <None Include="Resources\About.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
