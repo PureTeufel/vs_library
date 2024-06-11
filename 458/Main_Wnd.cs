@@ -46,7 +46,8 @@ namespace PLinView
         const UInt16 Mode1_Index = 0;//0x382
         const UInt16 Mode2_Index = 1;//0x383
         const UInt16 NetWork_Index = 2;
-        const UInt16 Second_Row_Seat_Heat_Cool_Duty_Cycle_Control = 3;
+        const UInt16 First_Row_Seat_Heat_Cool_Duty_Cycle_Control = 3;
+        const UInt16 Second_Row_Seat_Heat_Cool_Duty_Cycle_Control = 4;
 
         TPCANMsg[] Msg_To_Send = new TPCANMsg[6];
         byte[] MsgSend_Data = new byte[50];
@@ -189,12 +190,26 @@ namespace PLinView
         byte Sig383_2R_RcvyMdHMI2RRclReq = 0;
         byte Sig383_2R_SecRwRtStChldLkLReq = 0;
 
+        byte Sig429_Row1RwRtStHtCshnDtyCycl = 0;
+        byte Sig429_Row1RwRtStHtBkDtyCycl = 0;
+        byte Sig429_Row1RwRtStVntDtyCycl = 0;
+        byte Sig429_Row1RwLtStHtCshnDtyCycl = 0;
+        byte Sig429_Row1RwLtStHtBkDtyCycl = 0;
+        byte Sig429_Row1RwLtStVntDtyCycl = 0;
+
         byte Sig426_SecRwRtStHtCshnDtyCycl = 0;
         byte Sig426_SecRwRtStHtBkDtyCycl = 0;
         byte Sig426_SecRwRtStVntDtyCycl = 0;
         byte Sig426_SecRwLtStHtCshnDtyCycl = 0;
         byte Sig426_SecRwLtStHtBkDtyCycl = 0;
         byte Sig426_SecRwLtStVntDtyCycl = 0;
+
+        byte Sig428_SecRwRtStHtCshnDtyCycl = 0;
+        byte Sig428_SecRwRtStHtBkDtyCycl = 0;
+        byte Sig428_SecRwRtStVntDtyCycl = 0;
+        byte Sig428_SecRwLtStHtCshnDtyCycl = 0;
+        byte Sig428_SecRwLtStHtBkDtyCycl = 0;
+        byte Sig428_SecRwLtStVntDtyCycl = 0;
 
 
 
@@ -366,6 +381,7 @@ namespace PLinView
                 }
                 if ((timer_counter % 10 == 1))
                 {
+                    PCANBasic.Write(PCANBasic.PCAN_USBBUS1, ref Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control]);
                     PCANBasic.Write(PCANBasic.PCAN_USBBUS1, ref Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control]);
                 }
                 if (timer_counter >= 200)
@@ -396,7 +412,7 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStBlstOtwdInwdPosV.BackColor = Color.Green;
+                            DrvStBlstOtwdInwdPosV.BackColor = Color.GreenYellow;
                             DrvStBlstOtwdInwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x40) == 0x40)
@@ -406,7 +422,7 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStFtUpwdDnwdPosV.BackColor = Color.Green;
+                            DrvStFtUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             DrvStFtUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x20) == 0x20)
@@ -416,7 +432,7 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStLgrstUpwdDnwdPosV.BackColor = Color.Green;
+                            DrvStLgrstUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             DrvStLgrstUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x10) == 0x10)
@@ -426,12 +442,12 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStHdrstUpwdDnwdPosV.BackColor = Color.Green;
+                            DrvStHdrstUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             DrvStHdrstUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x08) == 0x08)
                         {
-                            DrvStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStBlstOtwdInwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -441,7 +457,7 @@ namespace PLinView
                         }
                         if ((msg.DATA[6] & 0x04) == 0x04)
                         {
-                            DrvStFtUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStFtUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStFtUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -451,7 +467,7 @@ namespace PLinView
                         }
                         if ((msg.DATA[6] & 0x02) == 0x02)
                         {
-                            DrvStHdrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStHdrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStHdrstUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -461,7 +477,7 @@ namespace PLinView
                         }
                         if ((msg.DATA[6] & 0x01) == 0x01)
                         {
-                            DrvStLgrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStLgrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStLgrstUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -484,12 +500,12 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStFrwdBkwdPosV.BackColor = Color.Green;
+                            DrvStFrwdBkwdPosV.BackColor = Color.GreenYellow;
                             DrvStFrwdBkwdPosV.Text = "电机有效";
                         }
                         if((msg.DATA[7] & 0x40) == 0x40)
                         {
-                            DrvStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStFrwdBkwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -505,12 +521,12 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStBkReclnUpwdDnwdPosV.BackColor = Color.Green;
+                            DrvStBkReclnUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             DrvStBkReclnUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[7] & 0x10) == 0x10)
                         {
-                            DrvStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStBkReclnUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -530,12 +546,12 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStCshnFrntUpwdDnwdPosV.BackColor = Color.Green;
+                            DrvStCshnFrntUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             DrvStCshnFrntUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[7] & 0x40) == 0x40)
                         {
-                            DrvStCshnFrntUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStCshnFrntUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStCshnFrntUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -550,12 +566,12 @@ namespace PLinView
                         }
                         else
                         {
-                            DrvStCshnRrUpwdDnwdPosV.BackColor = Color.Green;
+                            DrvStCshnRrUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             DrvStCshnRrUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[7] & 0x10) == 0x10)
                         {
-                            DrvStCshnRrUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            DrvStCshnRrUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             DrvStCshnRrUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -576,12 +592,12 @@ namespace PLinView
                         }
                         else
                         {
-                            PassStFrwdBkwdPosV.BackColor = Color.Green;
+                            PassStFrwdBkwdPosV.BackColor = Color.GreenYellow;
                             PassStFrwdBkwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            PassStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            PassStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             PassStFrwdBkwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -597,12 +613,12 @@ namespace PLinView
                         }
                         else
                         {
-                            PassStBkReclnUpwdDnwdPosV.BackColor = Color.Green;
+                            PassStBkReclnUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             PassStBkReclnUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            PassStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            PassStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             PassStBkReclnUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -630,12 +646,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStFrwdBkwdPosV.BackColor = Color.Green;
+                            SecRwLtStFrwdBkwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStFrwdBkwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            SecRwLtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStFrwdBkwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -650,12 +666,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStBkReclnUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwLtStBkReclnUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStBkReclnUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            SecRwLtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStBkReclnUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -671,12 +687,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStBlstOtwdInwdPosV.BackColor = Color.Green;
+                            SecRwLtStBlstOtwdInwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStBlstOtwdInwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[5] & 0x40) == 0x40)
                         {
-                            SecRwLtStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStBlstOtwdInwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -691,12 +707,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStLtwdRtwdPosV.BackColor = Color.Green;
+                            SecRwLtStLtwdRtwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStLtwdRtwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x01) == 0x01)
                         {
-                            SecRwLtStLtwdRtwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStLtwdRtwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStLtwdRtwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -723,12 +739,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStCshnFrntUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwLtStCshnFrntUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStCshnFrntUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            SecRwLtStCshnFrntUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStCshnFrntUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStCshnFrntUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -744,12 +760,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStCshnRrUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwLtStCshnRrUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStCshnRrUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            SecRwLtStCshnRrUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStCshnRrUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStCshnRrUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -764,12 +780,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStHPassStUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwLtStHPassStUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStHPassStUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[5] & 0x40) == 0x40)
                         {
-                            SecRwLtStUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -786,12 +802,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwLtStLgrstUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwLtStLgrstUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwLtStLgrstUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x01) == 0x01)
                         {
-                            SecRwLtStLgrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStLgrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwLtStLgrstUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -815,12 +831,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStFrwdBkwdPosV.BackColor = Color.Green;
+                            SecRwRtStFrwdBkwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStFrwdBkwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            SecRwRtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStFrwdBkwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -835,12 +851,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStBkReclnUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwRtStBkReclnUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStBkReclnUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            SecRwRtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStBkReclnUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -856,12 +872,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStBlstOtwdInwdPosV.BackColor = Color.Green;
+                            SecRwRtStBlstOtwdInwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStBlstOtwdInwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[5] & 0x40) == 0x40)
                         {
-                            SecRwRtStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStBlstOtwdInwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -876,12 +892,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStLtwdRtwdPosV.BackColor = Color.Green;
+                            SecRwRtStLtwdRtwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStLtwdRtwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x01) == 0x01)
                         {
-                            SecRwRtStLtwdRtwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStLtwdRtwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStLtwdRtwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -907,12 +923,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStCshnFrntUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwRtStCshnFrntUpwdDnwdPosV.BackColor = Color.LightGreen;
                             SecRwRtStCshnFrntUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            SecRwRtStCshnFrntUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStCshnFrntUpwdDnwdSnsrHmPosLrnd.BackColor = Color.LightGreen;
                             SecRwRtStCshnFrntUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -928,12 +944,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStCshnRrUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwRtStCshnRrUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStCshnRrUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            SecRwRtStCshnRrUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStCshnRrUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStCshnRrUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -948,12 +964,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStHPassStUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwRtStHPassStUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStHPassStUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[5] & 0x40) == 0x40)
                         {
-                            SecRwRtStUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -969,12 +985,12 @@ namespace PLinView
                         }
                         else
                         {
-                            SecRwRtStLgrstUpwdDnwdPosV.BackColor = Color.Green;
+                            SecRwRtStLgrstUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             SecRwRtStLgrstUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[6] & 0x01) == 0x01)
                         {
-                            SecRwRtStLgrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwRtStLgrstUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             SecRwRtStLgrstUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -995,12 +1011,12 @@ namespace PLinView
                         }
                         else
                         {
-                            ThdRwLtStFrwdBkwdPosV.BackColor = Color.Green;
+                            ThdRwLtStFrwdBkwdPosV.BackColor = Color.GreenYellow;
                             ThdRwLtStFrwdBkwdPosV.Text = "电机有效";
                         }
                         if((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            ThdRwLtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            ThdRwLtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwLtStFrwdBkwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -1015,12 +1031,12 @@ namespace PLinView
                         }
                         else
                         {
-                            ThdRwLtStBkReclnUpwdDnwdPosV.BackColor = Color.Green;
+                            ThdRwLtStBkReclnUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             ThdRwLtStBkReclnUpwdDnwdPosV.Text = "电机有效";
                         }
                         if((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            ThdRwLtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            ThdRwLtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwLtStBkReclnUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -1035,12 +1051,12 @@ namespace PLinView
                         }
                         else
                         {
-                            ThdRwLtStCshnFldUpwdDnwdPosV.BackColor = Color.Green;
+                            ThdRwLtStCshnFldUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             ThdRwLtStCshnFldUpwdDnwdPosV.Text = "电机有效";
                         }
                         if((msg.DATA[5] & 0x80) == 0x80)
                         {
-                            ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -1061,12 +1077,12 @@ namespace PLinView
                         }
                         else
                         {
-                            ThdRwRtStFrwdBkwdPosV.BackColor = Color.Green;
+                            ThdRwRtStFrwdBkwdPosV.BackColor = Color.GreenYellow;
                             ThdRwRtStFrwdBkwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[1] & 0x04) == 0x04)
                         {
-                            ThdRwRtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            ThdRwRtStFrwdBkwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwRtStFrwdBkwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -1081,12 +1097,12 @@ namespace PLinView
                         }
                         else
                         {
-                            ThdRwRtStBkReclnUpwdDnwdPosV.BackColor = Color.Green;
+                            ThdRwRtStBkReclnUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             ThdRwRtStBkReclnUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[3] & 0x10) == 0x10)
                         {
-                            ThdRwRtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            ThdRwRtStBkReclnUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwRtStBkReclnUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -1101,12 +1117,12 @@ namespace PLinView
                         }
                         else
                         {
-                            ThdRwRtStCshnFldUpwdDnwdPosV.BackColor = Color.Green;
+                            ThdRwRtStCshnFldUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             ThdRwRtStCshnFldUpwdDnwdPosV.Text = "电机有效";
                         }
                         if ((msg.DATA[5] & 0x40) == 0x40)
                         {
-                            ThdRwRtStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.Green;
+                            ThdRwRtStBlstOtwdInwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwRtStBlstOtwdInwdSnsrHmPosLrnd.Text = "电机已学习";
                         }
                         else
@@ -1160,7 +1176,60 @@ namespace PLinView
                         }
 #endif
                     }
-                    if(msg.ID == 0x383)
+                    if (msg.ID == 0x4BC)
+                    {
+                        SecRwLtStLgexInOutPos.Text = Convert.ToString(Convert.ToDouble((((msg.DATA[1] & 0x03) << 10) | ((msg.DATA[2] & 0xF0) << 2) | ((msg.DATA[3] & 0xC0) >> 6))) * 0.025);
+
+                        if ((msg.DATA[3] & 0x10) == 0x10)
+                        {
+                            SecRwLtStLgExtOutInPosV.BackColor = Color.Red;
+                            SecRwLtStLgExtOutInPosV.Text = "电机无效";
+                        }
+                        else
+                        {
+                            SecRwLtStLgExtOutInPosV.BackColor = Color.Green;
+                            SecRwLtStLgExtOutInPosV.Text = "电机有效";
+                        }
+
+                        if ((msg.DATA[3] & 0x20) == 0x20)
+                        {
+                            SecRwLtStLgExtOutInSnsrHmPosLrnd.BackColor = Color.Green;
+                            SecRwLtStLgExtOutInSnsrHmPosLrnd.Text = "电机已学习";
+                        }
+                        else
+                        {
+                            SecRwLtStLgExtOutInSnsrHmPosLrnd.BackColor = Color.Red;
+                            SecRwLtStLgExtOutInSnsrHmPosLrnd.Text = "电机未学习";
+                        }
+                    }
+                    if (msg.ID == 0x4BD)
+                    {
+                        SecRwRtStLgexInOutPos.Text = Convert.ToString(Convert.ToDouble((((msg.DATA[1] & 0x03) << 10) | ((msg.DATA[2] & 0xF0) << 2) | ((msg.DATA[3] & 0xC0) >> 6))) * 0.025);
+
+                        if ((msg.DATA[3] & 0x10) == 0x10)
+                        {
+                            SecRwRtStLgExtOutInPosV.BackColor = Color.Red;
+                            SecRwRtStLgExtOutInPosV.Text = "电机无效";
+                        }
+                        else
+                        {
+                            SecRwRtStLgExtOutInPosV.BackColor = Color.GreenYellow;
+                            SecRwRtStLgExtOutInPosV.Text = "电机有效";
+                        }
+
+                        if ((msg.DATA[3] & 0x20) == 0x20)
+                        {
+                            SecRwRtStLgExtOutInSnsrHmPosLrnd.BackColor = Color.GreenYellow;
+                            SecRwRtStLgExtOutInSnsrHmPosLrnd.Text = "电机已学习";
+                        }
+                        else
+                        {
+                            SecRwRtStLgExtOutInSnsrHmPosLrnd.BackColor = Color.Red;
+                            SecRwRtStLgExtOutInSnsrHmPosLrnd.Text = "电机未学习";
+                        }
+                    }
+
+                    if (msg.ID == 0x383)
                     {
                         counter_receive = 0;
                     }
@@ -1171,15 +1240,23 @@ namespace PLinView
                         {
 
                         }
-                        
                     }
                     if(msg.ID == 0x461)
                     {
                         SecRwLtStHtVntDtyCyclStat.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
+                        SecRwRtStHtVntDtyCyclStat.SelectedIndex = SecRwLtStHtVntDtyCyclStat.SelectedIndex;
                     }
                     if(msg.ID == 0x467)
                     {
                         
+                    }
+                    if (msg.ID == 0x476)
+                    {
+                        Row1L_Heat_Vent_Status.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
+                    }
+                    if (msg.ID == 0x473)
+                    { 
+                        Row1R_Heat_Vent_Status.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
                     }
                 }
             }
@@ -1342,14 +1419,18 @@ namespace PLinView
             Msg_To_Send[Mode2_Index].MSGTYPE = TPCANMessageType.PCAN_MESSAGE_STANDARD;
             Msg_To_Send[Mode2_Index].DATA = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
+
+            Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control] = new TPCANMsg();
+            Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].ID = 0x429;
+            Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].LEN = 8;
+            Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].MSGTYPE = TPCANMessageType.PCAN_MESSAGE_STANDARD;
+            Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control] = new TPCANMsg();
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].ID = 0x426;
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].LEN = 8;
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].MSGTYPE = TPCANMessageType.PCAN_MESSAGE_STANDARD;
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-
-
-
         }
 
 
@@ -3068,7 +3149,7 @@ namespace PLinView
                         Publisher[SPS_2L_Req_MSG_Index].Data[6] = 0x0;
                         Publisher[SPS_2L_Req_MSG_Index].Data[7] = (byte)((Sig_SPS_2L_SecRwStLgextInSwActv << 1) | (Sig_SPS_2L_SecRwStLgextOutSwActv << 2) | (Sig_SPS_2L_SecRwStZgvyUpSwActv << 3) | (Sig_SPS_2L_SecRwStZgvyDownSwActv << 4));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_2L_Req_MSG_Index]);
-                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_CODR_Req_MSG_Index].FrameId, 0, Publisher[SPS_2L_Req_MSG_Index].Length, Publisher[SPS_2L_Req_MSG_Index].Data);
+                        tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_2L_Req_MSG_Index].FrameId, 0, Publisher[SPS_2L_Req_MSG_Index].Length, Publisher[SPS_2L_Req_MSG_Index].Data);
                     }
                     break;
                 case 3:
@@ -3130,6 +3211,17 @@ namespace PLinView
                     }
                     break;
                 case 2:
+                    {
+                        Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[0] = (byte)(Sig429_Row1RwRtStHtCshnDtyCycl);
+                        Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[1] = (byte)(Sig429_Row1RwRtStHtBkDtyCycl);
+                        Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[2] = (byte)(Sig429_Row1RwRtStVntDtyCycl);
+                        Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[3] = (byte)(Sig429_Row1RwLtStHtCshnDtyCycl);
+                        Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[4] = (byte)(Sig429_Row1RwLtStHtBkDtyCycl);
+                        Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[5] = (byte)(Sig429_Row1RwLtStVntDtyCycl);
+                    }
+                    break;
+
+                case 3:
                     {
                         Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[0] = (byte)(Sig426_SecRwRtStHtCshnDtyCycl);
                         Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[1] = (byte)(Sig426_SecRwRtStHtBkDtyCycl);
@@ -3448,21 +3540,6 @@ namespace PLinView
             Get_LinData(3);
         }
 
-        private void SPS_2R_SecRwStLmbrUpwdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            Get_LinData(3);
-        }
-
-        private void SPS_2R_SecRwStLmbrBkwdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            Get_LinData(3);
-        }
-
-        private void SPS_2R_SecRwStLmbrFrwdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            Get_LinData(3);
-        }
-
         private void SPS_2R_SecRwStLgrstDnwdSwActv_CheckedChanged(object sender, EventArgs e)
         {
             if (SPS_2R_SecRwStLgrstDnwdSwActv.Checked == true)
@@ -3525,11 +3602,6 @@ namespace PLinView
             {
                 Sig_SPS_2R_SecRwStBkwdSwActv = 0;
             }
-            Get_LinData(3);
-        }
-
-        private void SPS_2R_SecRwStLmbrDnwdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
             Get_LinData(3);
         }
 
@@ -4363,57 +4435,38 @@ namespace PLinView
 
         private void SecRwLtStHtDtyCycl_CheckedChanged(object sender, EventArgs e)
         {
-            if(SecRwLtStHtDtyCycl.Checked == true)
-            {
-                Sig426_SecRwLtStHtCshnDtyCycl = 0xE5;
-                Sig426_SecRwLtStHtBkDtyCycl = 0xE5;
-            }
-            else
-            {
-                Sig426_SecRwLtStHtCshnDtyCycl = 0x00;
-                Sig426_SecRwLtStHtBkDtyCycl = 0x00;
-            }
+            Sig426_SecRwLtStHtCshnDtyCycl = 0xE5;
+            Sig426_SecRwLtStHtBkDtyCycl = 0xE5;
             Get_CanData(2);
         }
 
         private void SecRwLtStVntDtyCycl_CheckedChanged(object sender, EventArgs e)
         {
-            if(SecRwLtStVntDtyCycl.Checked == true)
+            
             {
                 Sig426_SecRwLtStVntDtyCycl = 0xE5;
             }
-            else
-            {
-                Sig426_SecRwLtStVntDtyCycl = 0x00;
-            }
+
             Get_CanData(2);
         }
 
         private void SecRwRtStHtDtyCycl_CheckedChanged(object sender, EventArgs e)
         {
-            if (SecRwRtStHtDtyCycl.Checked == true)
             {
                 Sig426_SecRwRtStHtCshnDtyCycl = 0xE5;
                 Sig426_SecRwRtStHtBkDtyCycl = 0xE5;
             }
-            else
-            {
-                Sig426_SecRwRtStHtCshnDtyCycl = 0x00;
-                Sig426_SecRwRtStHtBkDtyCycl = 0x00;
-            }
+
             Get_CanData(2);
         }
 
         private void SecRwRtStVntDtyCycl_CheckedChanged(object sender, EventArgs e)
         {
-            if (SecRwRtStVntDtyCycl.Checked == true)
+
             {
                 Sig426_SecRwRtStVntDtyCycl = 0xE5;
             }
-            else
-            {
-                Sig426_SecRwRtStVntDtyCycl = 0x00;
-            }
+
             Get_CanData(2);
         }
 
@@ -4578,6 +4631,151 @@ namespace PLinView
             }
 
             Get_LinData(2);
+        }
+
+        private void SecRwLtStHtDtyCycl_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(SecRwLtStHtDtyCycl.Text) == true)
+            {
+                Sig426_SecRwLtStHtCshnDtyCycl = Convert.ToByte(SecRwLtStHtDtyCycl.Text);
+                Sig426_SecRwLtStHtBkDtyCycl = Convert.ToByte(SecRwLtStHtDtyCycl.Text);
+            }
+            else
+            {
+                Sig426_SecRwLtStHtCshnDtyCycl = 0x0;
+                Sig426_SecRwLtStHtBkDtyCycl = 0x0;
+            }
+            
+            Get_CanData(3);
+        }
+
+        private void SecRwLtStVntDtyCycl_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(SecRwLtStVntDtyCycl.Text) == true)
+            {
+                Sig426_SecRwLtStVntDtyCycl = Convert.ToByte(SecRwLtStVntDtyCycl.Text);
+            }
+            else
+            {
+                Sig426_SecRwLtStVntDtyCycl = 0x0;
+            }
+
+            Get_CanData(3);
+        }
+
+        private bool CheckInputFormatIsValid(string str)
+        {
+            int idx = 0;
+            bool b = true;
+
+            if (string.IsNullOrEmpty(str))
+            {
+                b = false;
+            }
+
+            while (idx < str.Length)
+            {
+                if ((str[idx] <  '0') || (str[idx] > '9'))
+                {
+                    MessageBox.Show("输入格式有误!");
+                    b = false;
+                    break;
+                }
+
+                idx++;
+            }
+
+            return b;
+        }
+
+        private void SecRwRtStHtDtyCycl_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(SecRwRtStHtDtyCycl.Text) == true)
+            {
+                Sig426_SecRwRtStHtCshnDtyCycl = Convert.ToByte(SecRwRtStHtDtyCycl.Text);
+                Sig426_SecRwRtStHtBkDtyCycl = Convert.ToByte(SecRwRtStHtDtyCycl.Text);
+            }
+            else
+            {
+                Sig426_SecRwRtStHtCshnDtyCycl = 0x0;
+                Sig426_SecRwRtStHtBkDtyCycl = 0x0;
+            }
+
+            Get_CanData(3);
+        }
+
+        private void SecRwRtStVntDtyCycl_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(SecRwRtStVntDtyCycl.Text) == true)
+            {
+                Sig426_SecRwRtStVntDtyCycl = Convert.ToByte(SecRwRtStVntDtyCycl.Text);
+            }
+            else
+            {
+                Sig426_SecRwRtStVntDtyCycl = 0x0;
+            }
+
+            Get_CanData(3);
+        }
+
+        private void Row1L_Heat_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row1L_Heat_Req.Text) == true)
+            {
+                Sig429_Row1RwLtStHtCshnDtyCycl = Convert.ToByte(Row1L_Heat_Req.Text);
+                Sig429_Row1RwLtStHtBkDtyCycl = Convert.ToByte(Row1L_Heat_Req.Text);
+            }
+            else
+            {
+                Sig429_Row1RwLtStHtCshnDtyCycl = 0x0;
+                Sig429_Row1RwLtStHtBkDtyCycl = 0x0;
+            }
+
+            Get_CanData(2);
+        }
+
+        private void Row1L_Vent_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row1L_Vent_Req.Text) == true)
+            {
+                Sig429_Row1RwLtStVntDtyCycl = Convert.ToByte(Row1L_Vent_Req.Text);
+            }
+            else
+            {
+                Sig429_Row1RwLtStVntDtyCycl = 0x0;
+            }
+
+            Get_CanData(2);
+        }
+
+        private void Row1R_Heat_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row1R_Heat_Req.Text) == true)
+            {
+                Sig429_Row1RwLtStHtCshnDtyCycl = Convert.ToByte(Row1R_Heat_Req.Text);
+                Sig429_Row1RwLtStHtBkDtyCycl = Convert.ToByte(Row1R_Heat_Req.Text);
+            }
+            else
+            {
+                Sig429_Row1RwLtStHtCshnDtyCycl = 0x0;
+                Sig429_Row1RwLtStHtBkDtyCycl = 0x0;
+            }
+
+            Get_CanData(2);
+        }
+
+        private void Row1R_Vent_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row1R_Vent_Req.Text) == true)
+            {
+                Sig429_Row1RwRtStVntDtyCycl = Convert.ToByte(Row1R_Vent_Req.Text);
+            }
+            else
+            {
+                Sig429_Row1RwRtStVntDtyCycl = 0x0;
+            }
+
+            Get_CanData(2);
         }
     }
 }

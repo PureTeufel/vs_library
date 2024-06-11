@@ -88,8 +88,10 @@
             this.MM_Help_About = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Row1L_Vent_Req = new System.Windows.Forms.CheckBox();
-            this.Row1L_Heat_Req = new System.Windows.Forms.CheckBox();
+            this.Row1L_Heat_Req = new System.Windows.Forms.TextBox();
+            this.Row1L_Vent_Req = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.L_CushCloseSeltn = new System.Windows.Forms.CheckBox();
             this.L_CushOpenSeltn = new System.Windows.Forms.CheckBox();
             this.L_ReclineRrwdCustSeltn = new System.Windows.Forms.CheckBox();
@@ -101,8 +103,10 @@
             this.L_SeatRrwdCustSeltn = new System.Windows.Forms.CheckBox();
             this.L_SeatFrwdCustSeltn = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.Row1R_Vent_Req = new System.Windows.Forms.CheckBox();
-            this.Row1R_Heat_Req = new System.Windows.Forms.CheckBox();
+            this.Row1R_Heat_Req = new System.Windows.Forms.TextBox();
+            this.Row1R_Vent_Req = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.R_CushCloseSeltn = new System.Windows.Forms.CheckBox();
             this.R_CushOpenSeltn = new System.Windows.Forms.CheckBox();
             this.R_ReclineRrwdCustSeltn = new System.Windows.Forms.CheckBox();
@@ -110,10 +114,14 @@
             this.R_SeatRrwdCustSeltn = new System.Windows.Forms.CheckBox();
             this.R_SeatFrwdCustSeltn = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.SecRwLtStHtDtyCycl = new System.Windows.Forms.TextBox();
+            this.SecRwLtStVntDtyCycl = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SPS_2L_SecRwStZgvyDownSwActv = new System.Windows.Forms.CheckBox();
+            this.SPS_2L_SecRwStZgvyUpSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2L_SecRwStLgextInSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2L_SecRwStLgextOutSwActv = new System.Windows.Forms.CheckBox();
-            this.SecRwLtStVntDtyCycl = new System.Windows.Forms.CheckBox();
-            this.SecRwLtStHtDtyCycl = new System.Windows.Forms.CheckBox();
             this.SPS_2L_SecRwStLgrstDnwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2L_SecRwStLgrstUpwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2L_SecRwStBkReclnDnwdSwActv = new System.Windows.Forms.CheckBox();
@@ -121,12 +129,14 @@
             this.SPS_2L_SecRwStBkwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2L_SecRwStFrwdSwActv = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.SecRwRtStHtDtyCycl = new System.Windows.Forms.TextBox();
+            this.SecRwRtStVntDtyCycl = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SPS_2R_SecRwStZgvyDownSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2R_SecRwStZgvyUpSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2R_SecRwStLgextInSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2R_SecRwStLgextOutSwActv = new System.Windows.Forms.CheckBox();
-            this.SecRwRtStVntDtyCycl = new System.Windows.Forms.CheckBox();
-            this.SecRwRtStHtDtyCycl = new System.Windows.Forms.CheckBox();
             this.SPS_2R_SecRwStLgrstDnwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2R_SecRwStLgrstUpwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_2R_SecRwStBkReclnDnwdSwActv = new System.Windows.Forms.CheckBox();
@@ -185,9 +195,9 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.SecRwRtStHtVntDtyCyclStat = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd = new System.Windows.Forms.Label();
+            this.SecRwRtStLgExtOutInPosV = new System.Windows.Forms.Label();
+            this.SecRwRtStLgexInOutPos = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.SecRwRtStBkReclnUpwdDnwdPos = new System.Windows.Forms.TextBox();
             this.SecRwRtStFrwdBkwdPos = new System.Windows.Forms.TextBox();
@@ -210,7 +220,7 @@
             this.label37 = new System.Windows.Forms.Label();
             this.SecRwLtStLgExtOutInSnsrHmPosLrnd = new System.Windows.Forms.Label();
             this.SecRwLtStLgExtOutInPosV = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.SecRwLtStLgexInOutPos = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.SecRwLtStBkReclnUpwdDnwdPos = new System.Windows.Forms.TextBox();
             this.SecRwLtStFrwdBkwdPos = new System.Windows.Forms.TextBox();
@@ -310,8 +320,6 @@
             this.cycle = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.SPS_2L_SecRwStZgvyDownSwActv = new System.Windows.Forms.CheckBox();
-            this.SPS_2L_SecRwStZgvyUpSwActv = new System.Windows.Forms.CheckBox();
             this.StatusBar.SuspendLayout();
             this.TransmitPopup.SuspendLayout();
             this.ReceivePopup.SuspendLayout();
@@ -846,8 +854,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Row1L_Vent_Req);
             this.groupBox1.Controls.Add(this.Row1L_Heat_Req);
+            this.groupBox1.Controls.Add(this.Row1L_Vent_Req);
+            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.label21);
             this.groupBox1.Controls.Add(this.L_CushCloseSeltn);
             this.groupBox1.Controls.Add(this.L_CushOpenSeltn);
             this.groupBox1.Controls.Add(this.L_ReclineRrwdCustSeltn);
@@ -865,27 +875,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SPS_DR_Req_MSG-0x31";
             // 
-            // Row1L_Vent_Req
-            // 
-            this.Row1L_Vent_Req.AutoSize = true;
-            this.Row1L_Vent_Req.Location = new System.Drawing.Point(173, 50);
-            this.Row1L_Vent_Req.Name = "Row1L_Vent_Req";
-            this.Row1L_Vent_Req.Size = new System.Drawing.Size(52, 17);
-            this.Row1L_Vent_Req.TabIndex = 14;
-            this.Row1L_Vent_Req.Text = "通风";
-            this.Row1L_Vent_Req.UseVisualStyleBackColor = true;
-            this.Row1L_Vent_Req.CheckedChanged += new System.EventHandler(this.Row1L_Vent_Req_CheckedChanged);
-            // 
             // Row1L_Heat_Req
             // 
-            this.Row1L_Heat_Req.AutoSize = true;
-            this.Row1L_Heat_Req.Location = new System.Drawing.Point(173, 22);
+            this.Row1L_Heat_Req.Location = new System.Drawing.Point(188, 25);
             this.Row1L_Heat_Req.Name = "Row1L_Heat_Req";
-            this.Row1L_Heat_Req.Size = new System.Drawing.Size(52, 17);
-            this.Row1L_Heat_Req.TabIndex = 13;
-            this.Row1L_Heat_Req.Text = "加热";
-            this.Row1L_Heat_Req.UseVisualStyleBackColor = true;
-            this.Row1L_Heat_Req.CheckedChanged += new System.EventHandler(this.Row1L_Heat_Req_CheckedChanged);
+            this.Row1L_Heat_Req.Size = new System.Drawing.Size(100, 22);
+            this.Row1L_Heat_Req.TabIndex = 40;
+            this.Row1L_Heat_Req.TextChanged += new System.EventHandler(this.Row1L_Heat_Req_TextChanged);
+            // 
+            // Row1L_Vent_Req
+            // 
+            this.Row1L_Vent_Req.Location = new System.Drawing.Point(188, 56);
+            this.Row1L_Vent_Req.Name = "Row1L_Vent_Req";
+            this.Row1L_Vent_Req.Size = new System.Drawing.Size(100, 22);
+            this.Row1L_Vent_Req.TabIndex = 39;
+            this.Row1L_Vent_Req.TextChanged += new System.EventHandler(this.Row1L_Vent_Req_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(149, 60);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(33, 13);
+            this.label20.TabIndex = 38;
+            this.label20.Text = "通风";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(149, 28);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(33, 13);
+            this.label21.TabIndex = 37;
+            this.label21.Text = "加热";
             // 
             // L_CushCloseSeltn
             // 
@@ -999,8 +1021,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.Row1R_Vent_Req);
             this.groupBox2.Controls.Add(this.Row1R_Heat_Req);
+            this.groupBox2.Controls.Add(this.Row1R_Vent_Req);
+            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Controls.Add(this.label26);
             this.groupBox2.Controls.Add(this.R_CushCloseSeltn);
             this.groupBox2.Controls.Add(this.R_CushOpenSeltn);
             this.groupBox2.Controls.Add(this.R_ReclineRrwdCustSeltn);
@@ -1014,25 +1038,39 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SPS_CODR_Req_MSG-0x17";
             // 
-            // Row1R_Vent_Req
-            // 
-            this.Row1R_Vent_Req.AutoSize = true;
-            this.Row1R_Vent_Req.Location = new System.Drawing.Point(176, 51);
-            this.Row1R_Vent_Req.Name = "Row1R_Vent_Req";
-            this.Row1R_Vent_Req.Size = new System.Drawing.Size(52, 17);
-            this.Row1R_Vent_Req.TabIndex = 14;
-            this.Row1R_Vent_Req.Text = "通风";
-            this.Row1R_Vent_Req.UseVisualStyleBackColor = true;
-            // 
             // Row1R_Heat_Req
             // 
-            this.Row1R_Heat_Req.AutoSize = true;
-            this.Row1R_Heat_Req.Location = new System.Drawing.Point(176, 23);
+            this.Row1R_Heat_Req.Location = new System.Drawing.Point(191, 26);
             this.Row1R_Heat_Req.Name = "Row1R_Heat_Req";
-            this.Row1R_Heat_Req.Size = new System.Drawing.Size(52, 17);
-            this.Row1R_Heat_Req.TabIndex = 13;
-            this.Row1R_Heat_Req.Text = "加热";
-            this.Row1R_Heat_Req.UseVisualStyleBackColor = true;
+            this.Row1R_Heat_Req.Size = new System.Drawing.Size(100, 22);
+            this.Row1R_Heat_Req.TabIndex = 40;
+            this.Row1R_Heat_Req.TextChanged += new System.EventHandler(this.Row1R_Heat_Req_TextChanged);
+            // 
+            // Row1R_Vent_Req
+            // 
+            this.Row1R_Vent_Req.Location = new System.Drawing.Point(191, 57);
+            this.Row1R_Vent_Req.Name = "Row1R_Vent_Req";
+            this.Row1R_Vent_Req.Size = new System.Drawing.Size(100, 22);
+            this.Row1R_Vent_Req.TabIndex = 39;
+            this.Row1R_Vent_Req.TextChanged += new System.EventHandler(this.Row1R_Vent_Req_TextChanged);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(152, 61);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(33, 13);
+            this.label24.TabIndex = 38;
+            this.label24.Text = "通风";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(152, 29);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(33, 13);
+            this.label26.TabIndex = 37;
+            this.label26.Text = "加热";
             // 
             // R_CushCloseSeltn
             // 
@@ -1102,12 +1140,14 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.SecRwLtStHtDtyCycl);
+            this.groupBox3.Controls.Add(this.SecRwLtStVntDtyCycl);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStZgvyDownSwActv);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStZgvyUpSwActv);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStLgextInSwActv);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStLgextOutSwActv);
-            this.groupBox3.Controls.Add(this.SecRwLtStVntDtyCycl);
-            this.groupBox3.Controls.Add(this.SecRwLtStHtDtyCycl);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStLgrstDnwdSwActv);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStLgrstUpwdSwActv);
             this.groupBox3.Controls.Add(this.SPS_2L_SecRwStBkReclnDnwdSwActv);
@@ -1121,6 +1161,62 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "SPS_2L_Req_MSG-0x21";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // SecRwLtStHtDtyCycl
+            // 
+            this.SecRwLtStHtDtyCycl.Location = new System.Drawing.Point(52, 330);
+            this.SecRwLtStHtDtyCycl.Name = "SecRwLtStHtDtyCycl";
+            this.SecRwLtStHtDtyCycl.Size = new System.Drawing.Size(100, 22);
+            this.SecRwLtStHtDtyCycl.TabIndex = 36;
+            this.SecRwLtStHtDtyCycl.TextChanged += new System.EventHandler(this.SecRwLtStHtDtyCycl_TextChanged);
+            // 
+            // SecRwLtStVntDtyCycl
+            // 
+            this.SecRwLtStVntDtyCycl.Location = new System.Drawing.Point(52, 361);
+            this.SecRwLtStVntDtyCycl.Name = "SecRwLtStVntDtyCycl";
+            this.SecRwLtStVntDtyCycl.Size = new System.Drawing.Size(100, 22);
+            this.SecRwLtStVntDtyCycl.TabIndex = 35;
+            this.SecRwLtStVntDtyCycl.TextChanged += new System.EventHandler(this.SecRwLtStVntDtyCycl_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 365);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "通风";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 333);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "加热";
+            // 
+            // SPS_2L_SecRwStZgvyDownSwActv
+            // 
+            this.SPS_2L_SecRwStZgvyDownSwActv.AutoSize = true;
+            this.SPS_2L_SecRwStZgvyDownSwActv.Location = new System.Drawing.Point(16, 259);
+            this.SPS_2L_SecRwStZgvyDownSwActv.Name = "SPS_2L_SecRwStZgvyDownSwActv";
+            this.SPS_2L_SecRwStZgvyDownSwActv.Size = new System.Drawing.Size(91, 17);
+            this.SPS_2L_SecRwStZgvyDownSwActv.TabIndex = 22;
+            this.SPS_2L_SecRwStZgvyDownSwActv.Text = "零重力向下";
+            this.SPS_2L_SecRwStZgvyDownSwActv.UseVisualStyleBackColor = true;
+            this.SPS_2L_SecRwStZgvyDownSwActv.CheckedChanged += new System.EventHandler(this.SPS_2L_SecRwStZgvyDownSwActv_CheckedChanged);
+            // 
+            // SPS_2L_SecRwStZgvyUpSwActv
+            // 
+            this.SPS_2L_SecRwStZgvyUpSwActv.AutoSize = true;
+            this.SPS_2L_SecRwStZgvyUpSwActv.Location = new System.Drawing.Point(16, 233);
+            this.SPS_2L_SecRwStZgvyUpSwActv.Name = "SPS_2L_SecRwStZgvyUpSwActv";
+            this.SPS_2L_SecRwStZgvyUpSwActv.Size = new System.Drawing.Size(91, 17);
+            this.SPS_2L_SecRwStZgvyUpSwActv.TabIndex = 21;
+            this.SPS_2L_SecRwStZgvyUpSwActv.Text = "零重力向上";
+            this.SPS_2L_SecRwStZgvyUpSwActv.UseVisualStyleBackColor = true;
+            this.SPS_2L_SecRwStZgvyUpSwActv.CheckedChanged += new System.EventHandler(this.SPS_2L_SecRwStZgvyUpSwActv_CheckedChanged);
             // 
             // SPS_2L_SecRwStLgextInSwActv
             // 
@@ -1143,28 +1239,6 @@
             this.SPS_2L_SecRwStLgextOutSwActv.Text = "腿托伸出";
             this.SPS_2L_SecRwStLgextOutSwActv.UseVisualStyleBackColor = true;
             this.SPS_2L_SecRwStLgextOutSwActv.CheckedChanged += new System.EventHandler(this.SPS_2L_SecRwStLgextOutSwActv_CheckedChanged);
-            // 
-            // SecRwLtStVntDtyCycl
-            // 
-            this.SecRwLtStVntDtyCycl.AutoSize = true;
-            this.SecRwLtStVntDtyCycl.Location = new System.Drawing.Point(16, 361);
-            this.SecRwLtStVntDtyCycl.Name = "SecRwLtStVntDtyCycl";
-            this.SecRwLtStVntDtyCycl.Size = new System.Drawing.Size(52, 17);
-            this.SecRwLtStVntDtyCycl.TabIndex = 12;
-            this.SecRwLtStVntDtyCycl.Text = "通风";
-            this.SecRwLtStVntDtyCycl.UseVisualStyleBackColor = true;
-            this.SecRwLtStVntDtyCycl.CheckedChanged += new System.EventHandler(this.SecRwLtStVntDtyCycl_CheckedChanged);
-            // 
-            // SecRwLtStHtDtyCycl
-            // 
-            this.SecRwLtStHtDtyCycl.AutoSize = true;
-            this.SecRwLtStHtDtyCycl.Location = new System.Drawing.Point(16, 333);
-            this.SecRwLtStHtDtyCycl.Name = "SecRwLtStHtDtyCycl";
-            this.SecRwLtStHtDtyCycl.Size = new System.Drawing.Size(52, 17);
-            this.SecRwLtStHtDtyCycl.TabIndex = 11;
-            this.SecRwLtStHtDtyCycl.Text = "加热";
-            this.SecRwLtStHtDtyCycl.UseVisualStyleBackColor = true;
-            this.SecRwLtStHtDtyCycl.CheckedChanged += new System.EventHandler(this.SecRwLtStHtDtyCycl_CheckedChanged);
             // 
             // SPS_2L_SecRwStLgrstDnwdSwActv
             // 
@@ -1234,12 +1308,14 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.SecRwRtStHtDtyCycl);
+            this.groupBox4.Controls.Add(this.SecRwRtStVntDtyCycl);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStZgvyDownSwActv);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStZgvyUpSwActv);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStLgextInSwActv);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStLgextOutSwActv);
-            this.groupBox4.Controls.Add(this.SecRwRtStVntDtyCycl);
-            this.groupBox4.Controls.Add(this.SecRwRtStHtDtyCycl);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStLgrstDnwdSwActv);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStLgrstUpwdSwActv);
             this.groupBox4.Controls.Add(this.SPS_2R_SecRwStBkReclnDnwdSwActv);
@@ -1252,6 +1328,40 @@
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "SPS_2R_Req_MSG-0x11";
+            // 
+            // SecRwRtStHtDtyCycl
+            // 
+            this.SecRwRtStHtDtyCycl.Location = new System.Drawing.Point(57, 334);
+            this.SecRwRtStHtDtyCycl.Name = "SecRwRtStHtDtyCycl";
+            this.SecRwRtStHtDtyCycl.Size = new System.Drawing.Size(100, 22);
+            this.SecRwRtStHtDtyCycl.TabIndex = 40;
+            this.SecRwRtStHtDtyCycl.TextChanged += new System.EventHandler(this.SecRwRtStHtDtyCycl_TextChanged);
+            // 
+            // SecRwRtStVntDtyCycl
+            // 
+            this.SecRwRtStVntDtyCycl.Location = new System.Drawing.Point(57, 365);
+            this.SecRwRtStVntDtyCycl.Name = "SecRwRtStVntDtyCycl";
+            this.SecRwRtStVntDtyCycl.Size = new System.Drawing.Size(100, 22);
+            this.SecRwRtStVntDtyCycl.TabIndex = 39;
+            this.SecRwRtStVntDtyCycl.TextChanged += new System.EventHandler(this.SecRwRtStVntDtyCycl_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 369);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(33, 13);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "通风";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 337);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(33, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "加热";
             // 
             // SPS_2R_SecRwStZgvyDownSwActv
             // 
@@ -1296,28 +1406,6 @@
             this.SPS_2R_SecRwStLgextOutSwActv.Text = "腿托伸出";
             this.SPS_2R_SecRwStLgextOutSwActv.UseVisualStyleBackColor = true;
             this.SPS_2R_SecRwStLgextOutSwActv.CheckedChanged += new System.EventHandler(this.SPS_2R_SecRwStLgextOutSwActv_CheckedChanged);
-            // 
-            // SecRwRtStVntDtyCycl
-            // 
-            this.SecRwRtStVntDtyCycl.AutoSize = true;
-            this.SecRwRtStVntDtyCycl.Location = new System.Drawing.Point(6, 361);
-            this.SecRwRtStVntDtyCycl.Name = "SecRwRtStVntDtyCycl";
-            this.SecRwRtStVntDtyCycl.Size = new System.Drawing.Size(52, 17);
-            this.SecRwRtStVntDtyCycl.TabIndex = 12;
-            this.SecRwRtStVntDtyCycl.Text = "通风";
-            this.SecRwRtStVntDtyCycl.UseVisualStyleBackColor = true;
-            this.SecRwRtStVntDtyCycl.CheckedChanged += new System.EventHandler(this.SecRwRtStVntDtyCycl_CheckedChanged);
-            // 
-            // SecRwRtStHtDtyCycl
-            // 
-            this.SecRwRtStHtDtyCycl.AutoSize = true;
-            this.SecRwRtStHtDtyCycl.Location = new System.Drawing.Point(6, 333);
-            this.SecRwRtStHtDtyCycl.Name = "SecRwRtStHtDtyCycl";
-            this.SecRwRtStHtDtyCycl.Size = new System.Drawing.Size(52, 17);
-            this.SecRwRtStHtDtyCycl.TabIndex = 11;
-            this.SecRwRtStHtDtyCycl.Text = "加热";
-            this.SecRwRtStHtDtyCycl.UseVisualStyleBackColor = true;
-            this.SecRwRtStHtDtyCycl.CheckedChanged += new System.EventHandler(this.SecRwRtStHtDtyCycl_CheckedChanged);
             // 
             // SPS_2R_SecRwStLgrstDnwdSwActv
             // 
@@ -1577,7 +1665,7 @@
             // 
             this.groupBox16.Controls.Add(this.Row1L_Heat_Vent_Status);
             this.groupBox16.Controls.Add(this.label14);
-            this.groupBox16.Location = new System.Drawing.Point(9, 190);
+            this.groupBox16.Location = new System.Drawing.Point(458, 21);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(296, 66);
             this.groupBox16.TabIndex = 36;
@@ -1773,7 +1861,7 @@
             // 
             this.groupBox17.Controls.Add(this.Row1R_Heat_Vent_Status);
             this.groupBox17.Controls.Add(this.label18);
-            this.groupBox17.Location = new System.Drawing.Point(9, 183);
+            this.groupBox17.Location = new System.Drawing.Point(458, 19);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(296, 66);
             this.groupBox17.TabIndex = 37;
@@ -1921,9 +2009,9 @@
             // 
             this.groupBox12.Controls.Add(this.SecRwRtStHtVntDtyCyclStat);
             this.groupBox12.Controls.Add(this.label19);
-            this.groupBox12.Controls.Add(this.label1);
-            this.groupBox12.Controls.Add(this.label4);
-            this.groupBox12.Controls.Add(this.textBox4);
+            this.groupBox12.Controls.Add(this.SecRwRtStLgExtOutInSnsrHmPosLrnd);
+            this.groupBox12.Controls.Add(this.SecRwRtStLgExtOutInPosV);
+            this.groupBox12.Controls.Add(this.SecRwRtStLgexInOutPos);
             this.groupBox12.Controls.Add(this.label10);
             this.groupBox12.Controls.Add(this.SecRwRtStBkReclnUpwdDnwdPos);
             this.groupBox12.Controls.Add(this.SecRwRtStFrwdBkwdPos);
@@ -1974,31 +2062,31 @@
             this.label19.TabIndex = 36;
             this.label19.Text = "通风加热状态";
             // 
-            // label1
+            // SecRwRtStLgExtOutInSnsrHmPosLrnd
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(367, 146);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "学习状态";
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd.AutoSize = true;
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd.Location = new System.Drawing.Point(367, 146);
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd.Name = "SecRwRtStLgExtOutInSnsrHmPosLrnd";
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd.Size = new System.Drawing.Size(59, 13);
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd.TabIndex = 35;
+            this.SecRwRtStLgExtOutInSnsrHmPosLrnd.Text = "学习状态";
             // 
-            // label4
+            // SecRwRtStLgExtOutInPosV
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(258, 146);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 34;
-            this.label4.Text = "位置有效性";
+            this.SecRwRtStLgExtOutInPosV.AutoSize = true;
+            this.SecRwRtStLgExtOutInPosV.Location = new System.Drawing.Point(258, 146);
+            this.SecRwRtStLgExtOutInPosV.Name = "SecRwRtStLgExtOutInPosV";
+            this.SecRwRtStLgExtOutInPosV.Size = new System.Drawing.Size(72, 13);
+            this.SecRwRtStLgExtOutInPosV.TabIndex = 34;
+            this.SecRwRtStLgExtOutInPosV.Text = "位置有效性";
             // 
-            // textBox4
+            // SecRwRtStLgexInOutPos
             // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(155, 141);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(66, 22);
-            this.textBox4.TabIndex = 33;
+            this.SecRwRtStLgexInOutPos.Enabled = false;
+            this.SecRwRtStLgexInOutPos.Location = new System.Drawing.Point(155, 141);
+            this.SecRwRtStLgexInOutPos.Name = "SecRwRtStLgexInOutPos";
+            this.SecRwRtStLgexInOutPos.Size = new System.Drawing.Size(66, 22);
+            this.SecRwRtStLgexInOutPos.TabIndex = 33;
             // 
             // label10
             // 
@@ -2155,7 +2243,7 @@
             this.groupBox9.Controls.Add(this.label37);
             this.groupBox9.Controls.Add(this.SecRwLtStLgExtOutInSnsrHmPosLrnd);
             this.groupBox9.Controls.Add(this.SecRwLtStLgExtOutInPosV);
-            this.groupBox9.Controls.Add(this.textBox3);
+            this.groupBox9.Controls.Add(this.SecRwLtStLgexInOutPos);
             this.groupBox9.Controls.Add(this.label7);
             this.groupBox9.Controls.Add(this.SecRwLtStBkReclnUpwdDnwdPos);
             this.groupBox9.Controls.Add(this.SecRwLtStFrwdBkwdPos);
@@ -2224,13 +2312,13 @@
             this.SecRwLtStLgExtOutInPosV.TabIndex = 34;
             this.SecRwLtStLgExtOutInPosV.Text = "位置有效性";
             // 
-            // textBox3
+            // SecRwLtStLgexInOutPos
             // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(155, 133);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(66, 22);
-            this.textBox3.TabIndex = 33;
+            this.SecRwLtStLgexInOutPos.Enabled = false;
+            this.SecRwLtStLgexInOutPos.Location = new System.Drawing.Point(155, 133);
+            this.SecRwLtStLgexInOutPos.Name = "SecRwLtStLgexInOutPos";
+            this.SecRwLtStLgexInOutPos.Size = new System.Drawing.Size(66, 22);
+            this.SecRwLtStLgexInOutPos.TabIndex = 33;
             // 
             // label7
             // 
@@ -3301,28 +3389,6 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // SPS_2L_SecRwStZgvyDownSwActv
-            // 
-            this.SPS_2L_SecRwStZgvyDownSwActv.AutoSize = true;
-            this.SPS_2L_SecRwStZgvyDownSwActv.Location = new System.Drawing.Point(16, 259);
-            this.SPS_2L_SecRwStZgvyDownSwActv.Name = "SPS_2L_SecRwStZgvyDownSwActv";
-            this.SPS_2L_SecRwStZgvyDownSwActv.Size = new System.Drawing.Size(91, 17);
-            this.SPS_2L_SecRwStZgvyDownSwActv.TabIndex = 22;
-            this.SPS_2L_SecRwStZgvyDownSwActv.Text = "零重力向下";
-            this.SPS_2L_SecRwStZgvyDownSwActv.UseVisualStyleBackColor = true;
-            this.SPS_2L_SecRwStZgvyDownSwActv.CheckedChanged += new System.EventHandler(this.SPS_2L_SecRwStZgvyDownSwActv_CheckedChanged);
-            // 
-            // SPS_2L_SecRwStZgvyUpSwActv
-            // 
-            this.SPS_2L_SecRwStZgvyUpSwActv.AutoSize = true;
-            this.SPS_2L_SecRwStZgvyUpSwActv.Location = new System.Drawing.Point(16, 233);
-            this.SPS_2L_SecRwStZgvyUpSwActv.Name = "SPS_2L_SecRwStZgvyUpSwActv";
-            this.SPS_2L_SecRwStZgvyUpSwActv.Size = new System.Drawing.Size(91, 17);
-            this.SPS_2L_SecRwStZgvyUpSwActv.TabIndex = 21;
-            this.SPS_2L_SecRwStZgvyUpSwActv.Text = "零重力向上";
-            this.SPS_2L_SecRwStZgvyUpSwActv.UseVisualStyleBackColor = true;
-            this.SPS_2L_SecRwStZgvyUpSwActv.CheckedChanged += new System.EventHandler(this.SPS_2L_SecRwStZgvyUpSwActv_CheckedChanged);
-            // 
             // MainWnd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3345,7 +3411,7 @@
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainWnd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "458";
+            this.Text = "557";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWnd_FormClosing);
             this.Shown += new System.EventHandler(this.MainWnd_Shown);
             this.StatusBar.ResumeLayout(false);
@@ -3642,10 +3708,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox SecRwLtStVntDtyCycl;
-        private System.Windows.Forms.CheckBox SecRwLtStHtDtyCycl;
-        private System.Windows.Forms.CheckBox SecRwRtStVntDtyCycl;
-        private System.Windows.Forms.CheckBox SecRwRtStHtDtyCycl;
         private System.Windows.Forms.ComboBox SecRwLtStHtVntDtyCyclStat;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.CheckBox L_CushCloseSeltn;
@@ -3655,20 +3717,16 @@
         private System.Windows.Forms.TextBox DrvStCshnFrntUpwdDnwdPos;
         private System.Windows.Forms.Label SecRwLtStLgExtOutInSnsrHmPosLrnd;
         private System.Windows.Forms.Label SecRwLtStLgExtOutInPosV;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox SecRwLtStLgexInOutPos;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox SPS_2R_SecRwStZgvyDownSwActv;
         private System.Windows.Forms.CheckBox SPS_2R_SecRwStZgvyUpSwActv;
         private System.Windows.Forms.CheckBox SPS_2R_SecRwStLgextInSwActv;
         private System.Windows.Forms.CheckBox SPS_2R_SecRwStLgextOutSwActv;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label SecRwRtStLgExtOutInSnsrHmPosLrnd;
+        private System.Windows.Forms.Label SecRwRtStLgExtOutInPosV;
+        private System.Windows.Forms.TextBox SecRwRtStLgexInOutPos;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox Row1L_Vent_Req;
-        private System.Windows.Forms.CheckBox Row1L_Heat_Req;
-        private System.Windows.Forms.CheckBox Row1R_Vent_Req;
-        private System.Windows.Forms.CheckBox Row1R_Heat_Req;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.ComboBox Row1L_Heat_Vent_Status;
         private System.Windows.Forms.Label label14;
@@ -3681,6 +3739,22 @@
         private System.Windows.Forms.CheckBox SPS_2L_SecRwStLgextOutSwActv;
         private System.Windows.Forms.CheckBox SPS_2L_SecRwStZgvyDownSwActv;
         private System.Windows.Forms.CheckBox SPS_2L_SecRwStZgvyUpSwActv;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox SecRwLtStVntDtyCycl;
+        private System.Windows.Forms.TextBox SecRwLtStHtDtyCycl;
+        private System.Windows.Forms.TextBox SecRwRtStHtDtyCycl;
+        private System.Windows.Forms.TextBox SecRwRtStVntDtyCycl;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox Row1L_Heat_Req;
+        private System.Windows.Forms.TextBox Row1L_Vent_Req;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox Row1R_Heat_Req;
+        private System.Windows.Forms.TextBox Row1R_Vent_Req;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label26;
     }
 }
 
