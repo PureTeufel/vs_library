@@ -1517,8 +1517,8 @@ namespace PLinView
             byte lwHw = 1;
             ushort lwBaud;
             ulong llMask;
-            string sErrText;
-            sErrText = new string('\0', 255);
+            System.Text.StringBuilder sErrText;
+            sErrText = new System.Text.StringBuilder('\0', 255);
 
             Peak.Lin.TLINHardwareMode lHwMode;
 
@@ -1603,7 +1603,7 @@ namespace PLinView
                 // 0x07 = Language German
                 // 0x09 = Language English
                 Peak.Lin.PLinApi.GetErrorText(m_LastLINErr, 0x09, sErrText, 255);
-                MessageBox.Show(sErrText, Resources.SAppCaptionError);
+                MessageBox.Show(sErrText.ToString(), Resources.SAppCaptionError);
             }
         }
 
@@ -2046,7 +2046,7 @@ namespace PLinView
             ushort lwBuffSize, lwCount;
             int lnHwType, lnDevNo, lnChannel, lnMode, lnCurrBaud;
             ulong llMask;
-            string sErrText;
+            System.Text.StringBuilder sErrText;
             bool fRet;
             ConnectDlg lConnectDlg;
             Peak.Lin.TLINError lLINErr;
@@ -2060,7 +2060,7 @@ namespace PLinView
             lwHwHandles = new ushort[8];
             lwBuffSize = 8;
             lwCount = 0;
-            sErrText = new string('\0', 255);
+            sErrText = new System.Text.StringBuilder('\0', 255);
 
             // Get all available LIN hardware.
             lLINErr = Peak.Lin.PLinApi.GetAvailableHardware(lwHwHandles, lwBuffSize, out lwCount);
@@ -2237,7 +2237,7 @@ namespace PLinView
                             // 0x07 = Language German
                             // 0x09 = Language English
                             Peak.Lin.PLinApi.GetErrorText(m_LastLINErr, 0x09, sErrText, 255);
-                            MessageBox.Show(sErrText, Resources.SAppCaptionError);
+                            MessageBox.Show(sErrText.ToString(), Resources.SAppCaptionError);
                             fRet = false;
                         }
                     }
@@ -2339,10 +2339,10 @@ namespace PLinView
                     }
                     else
                     {
-                        string sErrText = new string('\0', 255);
+                        System.Text.StringBuilder sErrText = new System.Text.StringBuilder('\0', 255);
                         // Error while disconnecting from hardware.
                         Peak.Lin.PLinApi.GetErrorText(m_LastLINErr, 0x09, sErrText, 255);
-                        MessageBox.Show(sErrText, Resources.SAppCaptionError);
+                        MessageBox.Show(sErrText.ToString(), Resources.SAppCaptionError);
                         return false;
                     }
                 }
@@ -2768,9 +2768,9 @@ namespace PLinView
                 {
                     // If the wake up failed
                     // show the error message.
-                    string sErrText = new string('\0', 255);
+                    System.Text.StringBuilder sErrText = new System.Text.StringBuilder('\0', 255);
                     Peak.Lin.PLinApi.GetErrorText(m_LastLINErr, 0x09, sErrText, 255);
-                    MessageBox.Show(sErrText, Resources.SAppCaptionError);
+                    MessageBox.Show(sErrText.ToString(), Resources.SAppCaptionError);
                 }
                 else
                     DoLINCheckStates();
@@ -2874,7 +2874,7 @@ namespace PLinView
                 
                 lvi.SubItems.Add(e.Frames[i].RcvFrame.Length.ToString());
                 // Check if the Error "SlaveNotResponding" is received
-                if ((e.Frames[i].ErrorFlags & Peak.Lin.TLINMsgErrors.SlaveNOtResponding) == 0)
+                if ((e.Frames[i].ErrorFlags & Peak.Lin.TLINMsgErrors.SlaveNotResponding) == 0)
                     S = e.Frames[i].RcvFrame.DataAsString;
                 else
                 {
@@ -2902,7 +2902,7 @@ namespace PLinView
                 S = e.Frames[i].RcvFrame.Length.ToString();
                 if (lvi.SubItems[1].Text != S)
                     lvi.SubItems[1].Text = S;
-                if ((e.Frames[i].ErrorFlags & Peak.Lin.TLINMsgErrors.SlaveNOtResponding) == 0)
+                if ((e.Frames[i].ErrorFlags & Peak.Lin.TLINMsgErrors.SlaveNotResponding) == 0)
                     S = e.Frames[i].RcvFrame.DataAsString;
                 else
                 {

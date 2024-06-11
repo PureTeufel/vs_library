@@ -1,16 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 //  PLinApi.cs
-//  Version 2.0.21.51
 //
 //  Definition of the PLIN-API.
 //
-// 
+//
 //    Principle:
 //    ~~~~~~~~~~
 //    The driver supports multiple clients (= Windows or DOS programs
 //    that communicate with LIN-busses), and multiple LIN-Devices.
-//    A LIN-Device represent two LIN-Hardware (each channel is a Hardware)
-//    Multiple 'Clients' can be connected to one or more LIN-Hardware, which 
+//    A LIN-Device represents two LIN-Hardware (each channel is a Hardware)
+//    Multiple 'Clients' can be connected to one or more LIN-Hardware, which
 //    itself have an interface to a physical LIN-channel of a device.
 //
 //    Features:
@@ -24,17 +23,19 @@
 //     - each Client has a Receive Queue to buffer received messages
 //     - hClient: 'Client handle'. This number is used by the driver to
 //                identify and manage a Client
-//     - hHw: 'Hardware handle'. This number is used by the driver to
+//     - hHw:     'Hardware handle'. This number is used by the driver to
 //                identify and manage a Hardware
 //     - all handles are 1-based. 0 = illegal handle
 //
 //     All functions return a value of type TLINError
 //
-//     Authors: K.Wagner / P.Steil
+//     Authors: K.Wagner / M.Riedl
 //
 //     -----------------------------------------------------------------------
-//     Copyright (C) 2008-2009 by PEAK-System Technik GmbH, Darmstadt/Germany
+//     Copyright (C) 2008-2022 by PEAK-System Technik GmbH, Darmstadt/Germany
 //     -----------------------------------------------------------------------
+//
+//     Last Change: 2021-12-14
 ///////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Text;
@@ -73,7 +74,7 @@ namespace Peak.Lin
         /// <summary>
         /// Slave not responding error
         /// </summary>
-        SlaveNOtResponding = 0x8,
+        SlaveNotResponding = 0x8,
         /// <summary>
         /// A timeout was reached
         /// </summary>
@@ -87,7 +88,7 @@ namespace Peak.Lin
         /// </summary>
         GroundShort = 0x40,
         /// <summary>
-        /// Bus shorted to VBat
+        /// Bus shorted to Vbat
         /// </summary>
         VBatShort = 0x80,
         /// <summary>
@@ -141,6 +142,14 @@ namespace Peak.Lin
         /// Handle of the Hardware plug-in event
         /// </summary>
         clpOnPluginEventHandle = 9,
+        /// <summary>
+        /// Debug-Log activation status
+        /// </summary>
+        clpLogStatus = 10,
+        /// <summary>
+        /// Configuration of the debugged information (LOG_FUNCTION_***)
+        /// </summary>
+        clpLogConfiguration = 11,
     }
 
     /// <summary>
@@ -149,7 +158,7 @@ namespace Peak.Lin
     public enum TLINHardwareParam : ushort
     {
         /// <summary>
-        /// Hardware Name / Identifier
+        /// Hardware / Device Name
         /// </summary>
         hwpName = 1,
         /// <summary>
@@ -177,7 +186,7 @@ namespace Peak.Lin
         /// </summary>
         hwpMode = 7,
         /// <summary>
-        /// Lin Firmware Version (Text with the form xx.yy where:
+        /// LIN hardware firmware version (text with the form xx.yy where:
         /// xx = major version. yy = minor version)
         /// </summary>
         hwpFirmwareVersion = 8,
@@ -205,6 +214,38 @@ namespace Peak.Lin
         /// Receive Queue Buffer Overrun Counter
         /// </summary>
         hwpQueueOverrunCount = 14,
+        /// <summary>
+        /// Hardware identificaiton number
+        /// </summary>
+        hwpIdNumber = 15,
+        /// <summary>
+        /// User data on a hardware
+        /// </summary>
+        hwpUserData = 16,
+        /// <summary>
+        /// Number of bits used as break field in a LIN frame
+        /// </summary>
+        hwpBreakLength = 17,
+        /// <summary>
+        /// LIN Termination status
+        /// </summary>
+        hwpLinTermination = 18,
+        /// <summary>
+        /// Device flash mode for firmware update
+        /// </summary>
+        hwpFlashMode = 19,
+        /// <summary>
+        /// Number of the schedule currently active
+        /// </summary>
+        hwpScheduleActive = 20,
+        /// <summary>
+        /// Operation state of a schedule
+        /// </summary>
+        hwpScheduleState = 21,
+        /// <summary>
+        /// Handle of the executing slot of a suspended schedule
+        /// </summary>
+        hwpScheduleSuspendedSlot = 22,
     }
 
     /// <summary>
@@ -240,6 +281,10 @@ namespace Peak.Lin
         /// Queue Overrun status message
         /// </summary>
         mstQueueOverrun = 6,
+        /// <summary>
+        /// Client's receive queue overrun status message
+        /// </summary>
+        mstClientQueueOverrun,
     }
 
     /// <summary>
@@ -270,7 +315,7 @@ namespace Peak.Lin
     }
 
     /// <summary>
-    /// LIN Message Direction Types
+    /// Message Direction Types
     /// </summary>
     public enum TLINDirection : byte
     {
@@ -316,7 +361,7 @@ namespace Peak.Lin
     }
 
     /// <summary>
-    /// LIN Hardware operation mode
+    /// Hardware Operation Modes
     /// </summary>
     public enum TLINHardwareMode : byte
     {
@@ -335,7 +380,7 @@ namespace Peak.Lin
     }
 
     /// <summary>
-    /// LIN Hardware status
+    /// Hardware Status
     /// </summary>
     public enum TLINHardwareState : byte
     {
@@ -358,10 +403,33 @@ namespace Peak.Lin
         /// Hardware (bus-line) shorted to ground
         /// </summary>
         hwsShortGround = 6,
+        /// <summary>
+        /// Hardware (USB adapter) external voltage supply missing
+        /// </summary>
+        hwsVBatMissing = 7,
     }
 
     /// <summary>
-    /// LIN Error Codes
+    /// Schedule Status
+    /// </summary>
+    public enum TLINScheduleState : byte
+    {
+        /// <summary>
+        /// No schedule is running
+        /// </summary>
+        schNotRunning = 0,
+        /// <summary>
+        /// A schedule is currently suspended
+        /// </summary>
+        schSuspended = 1,
+        /// <summary>
+        /// A schedule is currently running
+        /// </summary>
+        schRunning = 2,
+    }
+
+    /// <summary>
+    /// Error Codes
     /// </summary>
     public enum TLINError : int
     {
@@ -374,7 +442,7 @@ namespace Peak.Lin
         /// </summary>
         errXmtQueueFull = 1,
         /// <summary>
-        /// Period of time is invalid. 
+        /// Period of time is invalid.
         /// </summary>
         errIllegalPeriod = 2,
         /// <summary>
@@ -414,7 +482,7 @@ namespace Peak.Lin
         /// </summary>
         errIllegalBaudrate = 11,
         /// <summary>
-        /// ID is outside of the valid range. 
+        /// ID is outside of the valid range.
         /// </summary>
         errIllegalFrameID = 12,
         /// <summary>
@@ -437,6 +505,30 @@ namespace Peak.Lin
         /// Range of bytes to be updated is invalid.
         /// </summary>
         errIllegalRange = 17,
+        /// <summary>
+        /// The hardware is initialized and it should not, or is not initialized and it should.
+        /// </summary>
+        errIllegalHardwareState = 18,
+        /// <summary>
+        /// Bad state of the scheduler.
+        /// </summary>
+        errIllegalSchedulerState = 19,
+        /// <summary>
+        /// Bad frame configuration.
+        /// </summary>
+        errIllegalFrameConfiguration = 20,
+        /// <summary>
+        /// The global pool for schedule slots is full.
+        /// </summary>
+        errScheduleSlotPoolFull = 21,
+        /// <summary>
+        /// There is no schedule present.
+        /// </summary>
+        errIllegalSchedule = 22,
+        /// <summary>
+        /// Operation not allowed by the current hardware mode.
+        /// </summary>
+        errIllegalHardwareMode = 23,
         /// <summary>
         /// LIN Manager does not have enough resources for the current task.
         /// </summary>
@@ -504,12 +596,12 @@ namespace Peak.Lin
         /// </summary>
         public byte Length;
         /// <summary>
-        /// Frame Direction (see TLINDirection)
+        /// Frame Direction (see Message Direction Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINDirection Direction;
         /// <summary>
-        /// Frame Checksum type (see TLINChecksumType)
+        /// Frame Checksum type (see Message Checksum Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINChecksumType ChecksumType;
@@ -531,7 +623,7 @@ namespace Peak.Lin
     public struct TLINRcvMsg
     {
         /// <summary>
-        /// Frame type (see TLINMsgType)
+        /// Frame type (see Received Message Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINMsgType Type;
@@ -544,12 +636,12 @@ namespace Peak.Lin
         /// </summary>
         public byte Length;
         /// <summary>
-        /// Frame Direction (see TLINDirection)
+        /// Frame Direction (see Message Direction Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINDirection Direction;
         /// <summary>
-        /// Frame Checksum type (see TLINChecksumType)
+        /// Frame Checksum type (see Message Checksum Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINChecksumType ChecksumType;
@@ -563,7 +655,7 @@ namespace Peak.Lin
         /// </summary>
         public byte Checksum;
         /// <summary>
-        /// Frame error flags (see TLINMsgErrors)
+        /// Frame error flags (see Error flags for LIN Rcv Msgs)
         /// </summary>
         [MarshalAs(UnmanagedType.I4)]
         public TLINMsgErrors ErrorFlags;
@@ -578,7 +670,7 @@ namespace Peak.Lin
     }
 
     /// <summary>
-    /// A LIN Frame Entry 
+    /// A LIN Frame Entry
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct TLINFrameEntry
@@ -592,17 +684,17 @@ namespace Peak.Lin
         /// </summary>
         public byte Length;
         /// <summary>
-        /// Frame Direction (see TLINDirection)
+        /// Frame Direction (see Message Direction Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINDirection Direction;
         /// <summary>
-        /// Frame Checksum type (see TLINChecksumType)
+        /// Frame Checksum type (see Message Checksum Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINChecksumType ChecksumType;
         /// <summary>
-        /// Frame flags (see FRAME_FLAG_...)
+        /// Frame flags (see Frame flags for LIN Msgs)
         /// </summary>
         public ushort Flags;
         /// <summary>
@@ -619,7 +711,7 @@ namespace Peak.Lin
     public struct TLINScheduleSlot
     {
         /// <summary>
-        /// Slot Type (see TLINSlotType)
+        /// Slot Type (see Schedule Slot Types)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINSlotType Type;
@@ -649,12 +741,12 @@ namespace Peak.Lin
     public struct TLINHardwareStatus
     {
         /// <summary>
-        /// Node state (see TLINHardwareMode)
+        /// Node state (see Hardware Operation Modes)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINHardwareMode Mode;
         /// <summary>
-        /// Bus state (see TLINHardwareState)
+        /// Bus state (see Hardware Status)
         /// </summary>
         [MarshalAs(UnmanagedType.U1)]
         public TLINHardwareState Status;
@@ -663,7 +755,7 @@ namespace Peak.Lin
         /// </summary>
         public byte FreeOnSendQueue;
         /// <summary>
-        /// Free slots in the Schedule pool (see LIN_MAX_SCHEDULE_SLOTS)
+        /// Free slots in the Schedule pool (see Minimum and Maximum values)
         /// </summary>
         public ushort FreeOnSchedulePool;
         /// <summary>
@@ -684,7 +776,20 @@ namespace Peak.Lin
         /// <summary>
         /// Hardware Type: LIN USB
         /// </summary>
+        [System.Obsolete]
         public const byte LIN_HW_TYPE_USB = 1;
+        /// <summary>
+        /// Hardware Type: PCAN-USB Pro LIN type
+        /// </summary>
+        public const byte LIN_HW_TYPE_USB_PRO = 1;
+        /// <summary>
+        /// Hardware Type: PCAN-USB Pro FD LIN
+        /// </summary>
+        public const byte LIN_HW_TYPE_USB_PRO_FD = 2;
+        /// <summary>
+        /// Hardware Type: PLIN-USB
+        /// </summary>
+        public const byte LIN_HW_TYPE_PLIN_USB = 3;
 
         /// <summary>
         /// Maximum allowed Frame ID
@@ -735,25 +840,73 @@ namespace Peak.Lin
         /// Slave Publisher Single shot
         /// </summary>
         public const int FRAME_FLAG_SINGLE_SHOT = 2;
-        
+
         /// <summary>
         /// Ignore InitialData on set frame entry
         /// </summary>
         public const int FRAME_FLAG_IGNORE_INIT_DATA = 4;
+
+        /// <summary>
+        /// Logs system exceptions / errors
+        /// </summary>
+        public const int LOG_FLAG_DEFAULT = 0x00;
+        /// <summary>
+        /// Logs the entries to the PLIN-API functions
+        /// </summary>
+        public const int LOG_FLAG_ENTRY = 0x01;
+        /// <summary>
+        /// Logs the parameters passed to the PLIN-API functions
+        /// </summary>
+        public const int LOG_FLAG_PARAMETERS = 0x02;
+        /// <summary>
+        /// Logs the exits from the PLIN-API functions
+        /// </summary>
+        public const int LOG_FLAG_LEAVE = 0x04;
+        /// <summary>
+        /// Logs the CAN messages passed to the LIN_Write function
+        /// </summary>
+        public const int LOG_FLAG_WRITE = 0x08;
+        /// <summary>
+        /// Logs the CAN messages received within the LIN_Read function
+        /// </summary>
+        public const int LOG_FLAG_READ = 0x10;
+        /// <summary>
+        /// Logs all possible information within the PLIN-API functions
+        /// </summary>
+        public const int LOG_FLAG_ALL = 0xFFFF;
+
+        /// <summary>
+        /// Maximum number of bytes that a user can read/write on a Hardware.
+        /// </summary>
+        public const int LIN_MAX_USER_DATA = 24;
+
+        /// <summary>
+        /// Minimum number of bits that can be used as break field in a LIN frame
+        /// </summary>
+        public const int LIN_MIN_BREAK_LENGTH = 13;
+
+        /// <summary>
+        /// Maximum number of bits that can be used as break field in a LIN frame
+        /// </summary>
+        public const int LIN_MAX_BREAK_LENGTH = 32;
+        /// <summary>
+        /// Maximum number of LIN frames that can be stored in the reception queue of a client
+        /// </summary>
+        public const int LIN_MAX_RCV_QUEUE_COUNT = 65535;
         #endregion
 
         #region Function prototypes
         /// <summary>
-        /// Registers a Client at the LIN Manager. Creates a Client handle and 
-        /// allocates the Receive Queue (only one per Client). The hWnd parameter 
-        /// can be zero for DOS Box Clients. The Client does not receive any 
+        /// Registers a Client at the LIN Manager. Creates a Client handle and
+        /// allocates the Receive Queue (only one per Client). The hWnd parameter
+        /// can be zero for DOS Box Clients. The Client does not receive any
         /// messages until LIN_RegisterFrameId() or LIN_SetClientFilter() is called.
         ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue 
+        ///   errWrongParameterValue, errOutOfResource
         /// </summary>
         /// <param name="strName">Name of the Client</param>
         /// <param name="hWnd">Window handle of the Client (only for information purposes)</param>
@@ -766,16 +919,16 @@ namespace Peak.Lin
             out HLINCLIENT hClient);
 
         /// <summary>
-        /// Removes a Client from the Client list of the LIN Manager. Frees all 
-        /// resources (receive queues, message counters, etc.). If the Client was 
-        /// a Boss-Client for one or more Hardware, the Boss-Client property for 
+        /// Removes a Client from the Client list of the LIN Manager. Frees all
+        /// resources (receive queues, message counters, etc.). If the Client was
+        /// a Boss-Client for one or more Hardware, the Boss-Client property for
         /// those Hardware will be set to INVALID_LIN_HANDLE.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient 
+        ///   errWrongParameterValue, errIllegalClient
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <returns>A LIN Error Code</returns>
@@ -786,9 +939,9 @@ namespace Peak.Lin
         /// <summary>
         /// Connects a Client to a Hardware.
         /// The Hardware is assigned by its Handle.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -802,11 +955,11 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Disconnects a Client from a Hardware. This means: no more messages 
+        /// Disconnects a Client from a Hardware. This means: no more messages
         /// will be received by this Client from this Hardware.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -821,9 +974,9 @@ namespace Peak.Lin
 
         /// <summary>
         /// Flushes the Receive Queue of the Client and resets its counters.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient
@@ -836,15 +989,15 @@ namespace Peak.Lin
 
         /// <summary>
         /// Sets a Client parameter to a given value.
-        /// 
+        ///
         ///   Allowed TLINClientParam    Parameter
         ///   values in wParam:          type:       Description:
         ///   -------------------------  ----------  ------------------------------
         ///   clpReceiveStatusFrames     int         0 = Status Frames deactivated,
         ///                                          otherwise active
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterType, errWrongParameterValue, errIllegalClient
@@ -861,26 +1014,26 @@ namespace Peak.Lin
 
         /// <summary>
         /// Gets a Client parameter.
-        /// 
+        ///
         ///   Allowed TLINClientParam    Parameter
         ///   values in wParam:          type:       Description:
         ///   -------------------------  ----------  ------------------------------
         ///   clpName                    string      Name of the Client
         ///   clpMessagesOnQueue         int         Unread messages in the Receive Queue
-        ///   clpWindowHandle            int         Window handle of the Client application 
+        ///   clpWindowHandle            int         Window handle of the Client application
         ///                                          (can be zero for DOS Box Clients)
-        ///   clpConnectedHardware       HLINHW[]    Array of Hardware Handles connected by a Client 
-        ///                                          The first item in the array refers to the 
+        ///   clpConnectedHardware       HLINHW[]    Array of Hardware Handles connected by a Client
+        ///                                          The first item in the array refers to the
         ///                                          amount of handles. So [*] = Total handles + 1
         ///   clpTransmittedMessages     int         Number of transmitted messages
         ///   clpReceivedMessages        int         Number of received messages
         ///   clpReceiveStatusFrames     int         0 = Status Frames deactivated, otherwise active
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterType, errWrongParameterValue, errIllegalClient, 
+        ///   errWrongParameterType, errWrongParameterValue, errIllegalClient,
         ///   errBufferInsufficient
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
@@ -900,7 +1053,7 @@ namespace Peak.Lin
             HLINCLIENT hClient,
             TLINClientParam wParam,
             [MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)]
-            string pBuff,
+            StringBuilder pBuff,
             ushort wBuffSize);
 
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetClientParam")]
@@ -912,11 +1065,11 @@ namespace Peak.Lin
             ushort wBuffSize);
 
         /// <summary>
-        /// Sets the filter of a Client and modifies the filter of 
+        /// Sets the filter of a Client and modifies the filter of
         /// the connected Hardware.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -934,9 +1087,9 @@ namespace Peak.Lin
 
         /// <summary>
         /// Gets the filter corresponding to a given Client-Hardware pair.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -953,11 +1106,11 @@ namespace Peak.Lin
             out UInt64 pRcvMask);
 
         /// <summary>
-        /// Reads the next message/status information from a Client's Receive 
+        /// Reads the next message/status information from a Client's Receive
         /// Queue. The message will be written to 'pMsg'.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errRcvQueueEmpty
@@ -972,13 +1125,13 @@ namespace Peak.Lin
 
         /// <summary>
         /// Reads several received messages.
-        /// pMsgBuff must be an array of 'iMaxCount' entries (must have at least 
+        /// pMsgBuff must be an array of 'iMaxCount' entries (must have at least
         /// a size of iMaxCount * sizeof(TLINRcvMsg) bytes).
         /// The size 'iMaxCount' of the array = max. messages that can be received.
         /// The real number of read messages will be returned in 'pCount'.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errRcvQueueEmpty
@@ -991,7 +1144,7 @@ namespace Peak.Lin
         [DllImport("plinapi.dll", EntryPoint = "LIN_ReadMulti")]
         public static extern TLINError ReadMulti(
             HLINCLIENT hClient,
-            [In, Out] 
+            [In, Out]
             TLINRcvMsg[] pMsgBuff,
             int iMaxCount,
             out int pCount);
@@ -999,12 +1152,12 @@ namespace Peak.Lin
         /// <summary>
         /// The Client 'hClient' transmits a message 'pMsg' to the Hardware 'hHw'.
         /// The message is written into the Transmit Queue of the Hardware.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
         ///   errIllegalDirection, errIllegalLength
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
@@ -1019,24 +1172,24 @@ namespace Peak.Lin
 
         /// <summary>
         /// Initializes a Hardware with a given Mode and Baudrate.
-        /// 
+        ///
         /// <remarks>
-        /// If the Hardware was initialized by another Client, the function 
+        /// If the Hardware was initialized by another Client, the function
         /// will re-initialize the Hardware. All connected clients will be affected.
-        /// It is the job of the user to manage the setting and/or configuration of 
+        /// It is the job of the user to manage the setting and/or configuration of
         /// Hardware, e.g. by using the Boss-Client parameter of the Hardware.
         /// </remarks>
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
         ///   errIllegalBaudrate
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="byMode">Hardware mode (see TLINHardwareMode)</param>
+        /// <param name="byMode">Hardware mode (see Hardware Operation Modes)</param>
         /// <param name="wBaudrate">Baudrate (see LIN_MIN_BAUDRATE and LIN_MAX_BAUDRATE)</param>
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_InitializeHardware")]
@@ -1048,18 +1201,18 @@ namespace Peak.Lin
             ushort wBaudrate);
 
         /// <summary>
-        /// Gets an array containing the handles of the current Hardware 
+        /// Gets an array containing the handles of the current Hardware
         /// available in the system.
-        /// The count of Hardware handles returned in the array is written in 
+        /// The count of Hardware handles returned in the array is written in
         /// 'pCount'.
-        /// 
+        ///
         /// <remarks>
-        /// To ONLY get the count of available Hardware, call this 
+        /// To ONLY get the count of available Hardware, call this
         /// function using 'pBuff' = NULL and wBuffSize = 0.
         /// </remarks>
         ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errBufferInsufficient
@@ -1077,20 +1230,21 @@ namespace Peak.Lin
 
         /// <summary>
         /// Sets a Hardware parameter to a given value.
-        /// 
+        ///
         ///   Allowed TLINHardwareParam  Parameter
         ///   values in wParam:          type:       Description:
         ///   -------------------------  ----------  ------------------------------
-        ///   hwpName                    string      The Hardware Name. See LIN_MAX_NAME_LENGTH
         ///   hwpMessageFilter           UInt64      Hardware message filter. Each bit
         ///                                          corresponds to a Frame ID (0..63)
         ///   hwpBossClient              HLINCLIENT  Handle of the new Boss-Client
-        /// 
+        ///   hwpIdNumber                int         Identification number for a hardware
+        ///   hwpUserData                byte[]      User data to write on a hardware. See LIN_MAX_USER_DATA
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterType, errWrongParameterValue, errIllegalClient, 
+        ///   errWrongParameterType, errWrongParameterValue, errIllegalClient,
         ///   errIllegalHardware
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
@@ -1099,15 +1253,6 @@ namespace Peak.Lin
         /// <param name="pBuff">Parameter value buffer</param>
         /// <param name="wBuffSize">Value buffer size</param>
         /// <returns>A LIN Error Code</returns>
-        [DllImport("plinapi.dll", EntryPoint = "LIN_SetHardwareParam")]
-        public static extern TLINError SetHardwareParam(
-            HLINCLIENT hClient,
-            HLINHW hHw,
-            TLINHardwareParam wParam,
-            [MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)]
-            string pBuff,
-            ushort wBuffSize);
-
         [DllImport("plinapi.dll", EntryPoint = "LIN_SetHardwareParam")]
         public static extern TLINError SetHardwareParam(
             HLINCLIENT hClient,
@@ -1124,19 +1269,36 @@ namespace Peak.Lin
             ref HLINCLIENT pBuff,
             ushort wBuffSize);
 
+        [DllImport("plinapi.dll", EntryPoint = "LIN_SetHardwareParam")]
+        public static extern TLINError SetHardwareParam(
+            HLINCLIENT hClient,
+            HLINHW hHw,
+            TLINHardwareParam wParam,
+            ref int pBuff,
+            ushort wBuffSize);
+
+        [DllImport("plinapi.dll", EntryPoint = "LIN_SetHardwareParam")]
+        public static extern TLINError SetHardwareParam(
+            HLINCLIENT hClient,
+            HLINHW hHw,
+            TLINHardwareParam wParam,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+            byte[] pBuff,
+            ushort wBuffSize);
+
         /// <summary>
         /// Gets a Hardware parameter.
-        /// 
+        ///
         ///   Allowed TLINHardwareParam  Parameter
         ///   values in wParam:          type:       Description:
         ///   -------------------------  ----------  ------------------------------
         ///   hwpName                    string      Name of the Hardware. See LIN_MAX_NAME_LENGTH
         ///   hwpDeviceNumber            int         Index of the Device owner of the Hardware
         ///   hwpChannelNumber           int         Channel Index of the Hardware on the owner device
-        ///   hwpConnectedClients        HLINCLIENT[]Array of Client Handles conencted to a Hardware 
-        ///                                          The first item in the array refers to the 
+        ///   hwpConnectedClients        HLINCLIENT[]Array of Client Handles conencted to a Hardware
+        ///                                          The first item in the array refers to the
         ///                                          amount of handles. So [*] = Total handles + 1
-        ///   hwpMessageFilter           UInt64      Configured message filter. Each bit corresponds 
+        ///   hwpMessageFilter           UInt64      Configured message filter. Each bit corresponds
         ///                                          to a Frame ID (0..63)
         ///   hwpBaudrate                int         Configured baudrate
         ///   hwpMode                    int         0 = Slave, otehrwise Master
@@ -1147,12 +1309,14 @@ namespace Peak.Lin
         ///   hwpVersion                 int         Version of the Hardware
         ///   hwpType                    int         Type of the Hardware
         ///   hwpQueueOverrunCount       int         Receive Queue Buffer Overrun Counter
-        /// 
+        ///   hwpIdNumber                int         Identification number for a hardware
+        ///   hwpUserData                byte[]      User data saved on the hardware. See LIN_MAX_USER_DATA
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterType, errWrongParameterValue, errIllegalHardware, 
+        ///   errWrongParameterType, errWrongParameterValue, errIllegalHardware,
         ///   errBufferInsufficient
         /// </summary>
         /// <param name="hHw">Handle of the Hardware</param>
@@ -1172,7 +1336,7 @@ namespace Peak.Lin
             HLINHW hHw,
             TLINHardwareParam wParam,
             [MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)]
-            string pBuff,
+            StringBuilder pBuff,
             ushort wBuffLen);
 
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetHardwareParam")]
@@ -1180,21 +1344,20 @@ namespace Peak.Lin
             HLINHW hHw,
             TLINHardwareParam wParam,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)]
-            HLINCLIENT[] pBuff,
+            byte[] pBuff,
             ushort wBuffLen);
 
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetHardwareParam")]
         public static extern TLINError GetHardwareParam(
             HLINHW hHw,
             TLINHardwareParam wParam,
-            [MarshalAs(UnmanagedType.LPStruct, SizeParamIndex = 3)]
-            TLINVersion pBuff,
+            out TLINVersion pBuff,
             ushort wBuffLen);
 
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetHardwareParam")]
         public static extern TLINError GetHardwareParam(
             HLINHW hHw,
-            TLINHardwareParam wParam,            
+            TLINHardwareParam wParam,
             out UInt64 pBuff,
             ushort wBuffLen);
 
@@ -1205,11 +1368,12 @@ namespace Peak.Lin
             out HLINCLIENT pBuff,
             ushort wBuffLen);
 
+
         /// <summary>
         /// Flushes the queues of the Hardware and resets its counters.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -1224,11 +1388,11 @@ namespace Peak.Lin
 
         /// <summary>
         /// Deletes the current configuration of the Hardware and sets its defaults.
-        /// The Client 'hClient' must be registered and connected to the Hardware to 
+        /// The Client 'hClient' must be registered and connected to the Hardware to
         /// be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -1242,11 +1406,11 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Phisically identifies a LIN Hardware (a channel on a LIN Device) by 
+        /// Phisically identifies a LIN Hardware (a channel on a LIN Device) by
         /// blinking its associated LED.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalHardware
@@ -1258,15 +1422,15 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Modifies the filter of a Client and, eventually, the filter of the 
-        /// connected Hardware. The messages with FrameID 'bFromFrameId' to 
+        /// Modifies the filter of a Client and, eventually, the filter of the
+        /// connected Hardware. The messages with FrameID 'bFromFrameId' to
         /// 'bToFrameId' will be received.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
         ///   errIllegalFrameID
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
@@ -1282,14 +1446,14 @@ namespace Peak.Lin
             byte bToFrameId);
 
         /// <summary>
-        /// Configures a LIN Frame in a given Hardware. The Client 'hClient' must 
+        /// Configures a LIN Frame in a given Hardware. The Client 'hClient' must
         /// be registered and connected to the Hardware to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
         ///   errIllegalFrameID, errIllegalLength
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
@@ -1304,21 +1468,21 @@ namespace Peak.Lin
 
         /// <summary>
         /// Gets the configuration of a LIN Frame from a given Hardware.
-        /// 
+        ///
         /// <remarks>
-        /// The 'pFrameEntry.FrameId' must be set to the ID of the frame, whose 
+        /// The 'pFrameEntry.FrameId' must be set to the ID of the frame, whose
         /// configuration should be returned.
         /// </remarks>
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalHardware, errIllegalFrameID
         /// </summary>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="pFrameEntry">Frame entry buffer. The member FrameId 
-        /// must be set to the ID of the frame, whose configuration should 
+        /// <param name="pFrameEntry">Frame entry buffer. The member FrameId
+        /// must be set to the ID of the frame, whose configuration should
         /// be returned </param>
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetFrameEntry")]
@@ -1327,16 +1491,16 @@ namespace Peak.Lin
             ref TLINFrameEntry pFrameEntry);
 
         /// <summary>
-        /// Updates the data of a LIN Frame for a given Hardware. The Client 
-        /// 'hClient' must be registered and connected to the Hardware to be 
+        /// Updates the data of a LIN Frame for a given Hardware. The Client
+        /// 'hClient' must be registered and connected to the Hardware to be
         /// accessed. 'pData' must have at least a size of 'bLen'.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
-        ///   errIllegalFrameID, errIllegalLength, errIllegalIndex, 
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalFrameID, errIllegalLength, errIllegalIndex,
         ///   errIllegalRange
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
@@ -1357,16 +1521,16 @@ namespace Peak.Lin
             byte[] pData);
 
         /// <summary>
-        /// Sets the Frame 'bFrameId' as Keep-Alive frame for the given Hardware and 
-        /// starts to send it every 'wPeriod' Milliseconds. The Client 'hClient' must 
+        /// Sets the Frame 'bFrameId' as Keep-Alive frame for the given Hardware and
+        /// starts to send it every 'wPeriod' Milliseconds. The Client 'hClient' must
         /// be registered and connected to the Hardware to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
-        ///   errIllegalFrameID
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalFrameID, errIllegalSchedulerState, errIllegalFrameConfiguration
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
@@ -1382,11 +1546,11 @@ namespace Peak.Lin
 
         /// <summary>
         /// Suspends the sending of a Keep-Alive frame in the given Hardware.
-        /// The Client 'hClient' must be registered and connected to the Hardware 
+        /// The Client 'hClient' must be registered and connected to the Hardware
         /// to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -1400,15 +1564,16 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Resumes the sending of a Keep-Alive frame in the given Hardware. 
-        /// The Client 'hClient' must be registered and connected to the Hardware 
+        /// Resumes the sending of a Keep-Alive frame in the given Hardware.
+        /// The Client 'hClient' must be registered and connected to the Hardware
         /// to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
+        ///   errIllegalSchedulerState, errIllegalFrameConfiguration
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
@@ -1419,21 +1584,21 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Configures the slots of a Schedule in a given Hardware. The Client 
-        /// 'hClient' must be registered and connected to the Hardware to be 
-        /// accessed. The Slot handles will be returned in the parameter 
-        /// "pSchedule" (Slots buffer), when this function successfully completes. 
-        /// 
+        /// Configures the slots of a Schedule in a given Hardware. The Client
+        /// 'hClient' must be registered and connected to the Hardware to be
+        /// accessed. The Slot handles will be returned in the parameter
+        /// "pSchedule" (Slots buffer), when this function successfully completes.
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
-        ///   errIllegalScheduleNo, errIllegalSlotCount
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalScheduleNo, errIllegalSlotCount, errScheduleSlotPoolFull
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="iScheduleNumber">Schedule number (see 
+        /// <param name="iScheduleNumber">Schedule number (see
         /// LIN_MIN_SCHEDULE_NUMBER and LIN_MAX_SCHEDULE_NUMBER)</param>
         /// <param name="pSchedule">Slots buffer</param>
         /// <param name="iSlotCount">Count of Slots in the slots buffer</param>
@@ -1443,28 +1608,28 @@ namespace Peak.Lin
             HLINCLIENT hClient,
             HLINHW hHw,
             int iScheduleNumber,
-            [MarshalAs(UnmanagedType.LPArray)]
-            ref TLINScheduleSlot pSchedule,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+            [In, Out]TLINScheduleSlot[] pSchedule,
             int iSlotCount);
 
         /// <summary>
-        /// Gets the slots of a Schedule from a given Hardware. The count of slots 
+        /// Gets the slots of a Schedule from a given Hardware. The count of slots
         /// returned in the array is written in 'pSlotCount'.
-        /// 
+        ///
         /// <remarks>
-        /// To ONLY get the count of slots contained in the given Schedule, 
+        /// To ONLY get the count of slots contained in the given Schedule,
         /// call this function using 'pScheduleBuff' = NULL and iMaxSlotCount = 0.
         /// </remarks>
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalHardware, errIllegalScheduleNo, 
-        ///   errIllegalSlotCount
+        ///   errWrongParameterValue, errIllegalHardware, errIllegalScheduleNo,
+        ///   errIllegalSlotCount, errIllegalSchedule
         /// </summary>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="iScheduleNumber">Schedule Number (see 
+        /// <param name="iScheduleNumber">Schedule Number (see
         /// LIN_MIN_SCHEDULE_NUMBER and LIN_MAX_SCHEDULE_NUMBER)</param>
         /// <param name="pScheduleBuff">Slots Buffer.</param>
         /// <param name="iMaxSlotCount">Maximum number of slots to read.</param>
@@ -1474,26 +1639,26 @@ namespace Peak.Lin
         public static extern TLINError GetSchedule(
             HLINHW hHw,
             int iScheduleNumber,
-            [In, Out] 
+            [In, Out]
             TLINScheduleSlot[] pScheduleBuff,
             int iMaxSlotCount,
             out int pSlotCount);
 
         /// <summary>
-        /// Removes all slots contained by a Schedule of a given Hardware. The 
-        /// Client 'hClient' must be registered and connected to the Hardware to 
+        /// Removes all slots contained by a Schedule of a given Hardware. The
+        /// Client 'hClient' must be registered and connected to the Hardware to
         /// be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
-        ///   errIllegalScheduleNo
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalScheduleNo, errIllegalSchedulerState
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="iScheduleNumber">Schedule Number (see 
+        /// <param name="iScheduleNumber">Schedule Number (see
         /// LIN_MIN_SCHEDULE_NUMBER and LIN_MAX_SCHEDULE_NUMBER)</param>
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_DeleteSchedule")]
@@ -1503,17 +1668,17 @@ namespace Peak.Lin
             int iScheduleNumber);
 
         /// <summary>
-        /// Sets a 'breakpoint' on a slot from a Schedule in a given Hardware. The 
-        /// Client 'hClient' must be registered and connected to the Hardware to 
+        /// Sets a 'breakpoint' on a slot from a Schedule in a given Hardware. The
+        /// Client 'hClient' must be registered and connected to the Hardware to
         /// be accessed.
-        /// 
+        ///
         /// <remarks>
-        /// Giving 'dwHandle' a value of 0 ('null'), causes the deletion of 
+        /// Giving 'dwHandle' a value of 0 ('null'), causes the deletion of
         //  the breakpoint.
         /// </remarks>
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -1531,19 +1696,19 @@ namespace Peak.Lin
             uint dwHandle);
 
         /// <summary>
-        /// Activates a Schedule in a given Hardware. The Client 'hClient' must 
+        /// Activates a Schedule in a given Hardware. The Client 'hClient' must
         /// be registered and connected to the Hardware to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware, 
-        ///   errIllegalScheduleNo
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalScheduleNo, errIllegalHardwareMode, errIllegalSchedule
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="iScheduleNumber">Schedule Number (see 
+        /// <param name="iScheduleNumber">Schedule Number (see
         /// LIN_MIN_SCHEDULE_NUMBER and LIN_MAX_SCHEDULE_NUMBER)</param>
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_StartSchedule")]
@@ -1553,11 +1718,11 @@ namespace Peak.Lin
             int iScheduleNumber);
 
         /// <summary>
-        /// Suspends an active Schedule in a given Hardware. The Client 'hClient' 
+        /// Suspends an active Schedule in a given Hardware. The Client 'hClient'
         /// must be registered and connected to the Hardware to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -1571,14 +1736,15 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Restarts a configured Schedule in a given Hardware. The Client 'hClient' 
+        /// Restarts a configured Schedule in a given Hardware. The Client 'hClient'
         /// must be registered and connected to the Hardware to be accessed.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
-        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalSchedule, errIllegalHardwareMode, errIllegalSchedulerState
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
@@ -1590,12 +1756,15 @@ namespace Peak.Lin
 
 
         /// <summary>
-        /// Sends a wake-up message impulse (single data byte 0xF0). The Client 
-        /// 'hClient' must be registered and connected to the Hardware to be 
+        /// Sends a wake-up message impulse (single data byte 0xF0). The Client
+        /// 'hClient' must be registered and connected to the Hardware to be
         /// accessed.
-        /// 
+        ///
+        /// <Remark>Only in Slave-mode. After sending a wake-up impulse a time
+        /// of 150 milliseconds is used as timeout.</Remark>
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
@@ -1609,17 +1778,42 @@ namespace Peak.Lin
             HLINHW hHw);
 
         /// <summary>
-        /// Starts a process to detect the Baud rate of the LIN bus that is 
-        /// connected to the indicated Hardware.
-        /// The Client 'hClient' must be registered and connected to the Hardware 
-        /// to be accessed. The Hardware must be not initialized in order 
-        /// to do an Auto-baudrate procedure.
-        /// 
+        /// Sends a wake-up message impulse (single data byte 0xF0) and specifies a custom
+        /// bus-sleep timeout, in milliseconds. 'hClient' must be registered and connected
+        /// to the Hardware to be accessed.
+        ///
+        /// <Remark>Only in Slave-mode. The bus-sleep timeout is set to its
+        /// default, 150 milliseconds, after the custom timeout is exhausted.</Remark>
+        ///
         /// Possible DLL interaction errors:
         ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalClient, errIllegalHardware
+        /// </summary>
+        /// <param name="hClient">Handle of the Client</param>
+        /// <param name="hHw">Handle of the Hardware</param>
+        /// <param name="wTimeOut">Bus-sleep timeout</param>
+        /// <returns>A LIN Error Code</returns>
+        [DllImport("plinapi.dll", EntryPoint = "LIN_XmtDynamicWakeUp")]
+        public static extern TLINError XmtDynamicWakeUp(
+            HLINCLIENT hClient,
+            HLINHW hHw,
+            ushort wTimeOut);
+
+        /// <summary>
+        /// Starts a process to detect the Baud rate of the LIN bus that is
+        /// connected to the indicated Hardware.
+        /// The Client 'hClient' must be registered and connected to the Hardware
+        /// to be accessed. The Hardware must be not initialized in order
+        /// to do an Auto-baudrate procedure.
+        ///
+        /// Possible DLL interaction errors:
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
+        ///
+        /// Possible API errors:
+        ///   errWrongParameterValue, errIllegalClient, errIllegalHardware,
+        ///   errIllegalHardwareState
         /// </summary>
         /// <param name="hClient">Handle of the Client</param>
         /// <param name="hHw">Handle of the Hardware</param>
@@ -1633,9 +1827,9 @@ namespace Peak.Lin
 
         /// <summary>
         /// Retrieves current status information from the given Hardware.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalHardware
@@ -1649,11 +1843,11 @@ namespace Peak.Lin
             out TLINHardwareStatus pStatusBuff);
 
         /// <summary>
-        /// Calculates the checksum of a LIN Message and writes it into the 
+        /// Calculates the checksum of a LIN Message and writes it into the
         /// 'Checksum' field of 'pMsg'.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalLength
@@ -1665,11 +1859,11 @@ namespace Peak.Lin
             ref TLINMsg pMsg);
 
         /// <summary>
-        ///  Returns a TLINVersion sttructure containing the PLIN-API DLL version.
-        ///  
+        ///  Returns a TLINVersion structure containing the PLIN-API DLL version.
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
-        /// 
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
+        ///
         /// Possible API errors:
         ///   errWrongParameterValue
         /// </summary>
@@ -1681,9 +1875,9 @@ namespace Peak.Lin
 
         /// <summary>
         /// Returns a string containing Copyright information.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue
@@ -1694,15 +1888,15 @@ namespace Peak.Lin
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetVersionInfo")]
         public static extern TLINError GetVersionInfo(
             [MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)]
-            string pTextBuff,
+            StringBuilder pTextBuff,
             int wBuffSize);
 
         /// <summary>
-        /// Converts the error code 'dwError' to a text containing an error 
+        /// Converts the error code 'dwError' to a text containing an error
         /// description in the language given as parameter (when available).
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errBufferInsufficient
@@ -1716,16 +1910,16 @@ namespace Peak.Lin
         public static extern TLINError GetErrorText(
             TLINError dwError,
             byte bLanguage,
-            [MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)]
-            string strTextBuff,
+            [MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)]
+            StringBuilder strTextBuff,
             int wBuffSize);
 
         /// <summary>
-        /// Gets the 'FrameId with Parity' corresponding to the given 
+        /// Gets the 'FrameId with Parity' corresponding to the given
         /// 'pFrameId' and writes the result on it.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalFrameID
@@ -1738,15 +1932,15 @@ namespace Peak.Lin
 
         /// <summary>
         /// Gets the system time used by the LIN-USB adapter.
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
         ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalHardware
         /// </summary>
         /// <param name="hHw">Handle of the Hardware</param>
-        /// <param name="pTargetTime">Target Timer buffer</param>
+        /// <param name="pTargetTime">Target Time buffer</param>
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetTargetTime")]
         public static extern TLINError GetTargetTime(
@@ -1755,10 +1949,10 @@ namespace Peak.Lin
 
         /// <summary>
         /// Sets the Response Remap of a LIN Slave
-        /// 
+        ///
         /// Possible DLL interaction errors:
-        ///   errManagerNotLoaded, errManagerNotResponse, errMemoryAccess
-        ///   
+        ///   errManagerNotLoaded, errManagerNotResponding, errMemoryAccess
+        ///
         /// Possible API errors:
         ///   errWrongParameterValue, errIllegalFrameID, errIllegalClient, errIllegalHardware,
         ///   errMemoryAccess
@@ -1769,10 +1963,10 @@ namespace Peak.Lin
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_SetResponseRemap")]
         public static extern TLINError SetResponseRemap (
-	        HLINCLIENT  hClient,                
-	        HLINHW hHw,
-            [MarshalAs(UnmanagedType.LPArray, SizeConst = 64)]      
-	        byte[] pRemapTab);
+            HLINCLIENT  hClient,
+            HLINHW hHw,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 64)]
+            byte[] pRemapTab);
 
         /// <summary>
         /// Gets the Response Remap of a LIN Slave
@@ -1782,9 +1976,25 @@ namespace Peak.Lin
         /// <returns>A LIN Error Code</returns>
         [DllImport("plinapi.dll", EntryPoint = "LIN_GetResponseRemap")]
         public static extern TLINError GetResponseRemap (
-	        HLINHW hHw,
-            [MarshalAs(UnmanagedType.LPArray, SizeConst = 64)]      
-	        byte[] pRemapTab);
+            HLINHW hHw,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 64)]
+            byte[] pRemapTab);
+
+        /// <summary>
+        /// Gets the current system time. The system time is returned by
+        /// Windows as the elapsed number of microseconds since system start.
+        ///
+        /// Possible DLL interaction errors:
+        ///   errMemoryAccess
+        ///
+        /// Possible API errors:
+        ///   errWrongParameterValue
+        /// </summary>
+        /// <param name="pTargetTime">System Time buffer</param>
+        /// <returns>A LIN Error Code</returns>
+        [DllImport("plinapi.dll", EntryPoint = "LIN_GetSystemTime")]
+        public static extern TLINError GetSystemTime(
+            out UInt64 pTargetTime);
         #endregion
     }
 }
