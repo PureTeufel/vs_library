@@ -149,14 +149,12 @@
             this.SPS_3L_ThdRStBkwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_3L_ThdRStFrwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_3L_ThdRStExpdSwActv = new System.Windows.Forms.CheckBox();
-            this.SPS_3L_AcsMdExtRclSwActv = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.SPS_3R_ThdRRtStExpdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_3R_ThdRwRtStBkwdSwActv = new System.Windows.Forms.CheckBox();
             this.SPS_3R_ThdRwRtStFrwdSwActv = new System.Windows.Forms.CheckBox();
-            this.SPS_3R_ThdRRtStExpdSwActv = new System.Windows.Forms.CheckBox();
-            this.SPS_3R_AcsMdExtRtRclSwActv = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.Row1L_Heat_Vent_Status = new System.Windows.Forms.ComboBox();
@@ -1480,7 +1478,6 @@
             this.groupBox5.Controls.Add(this.SPS_3L_ThdRStBkwdSwActv);
             this.groupBox5.Controls.Add(this.SPS_3L_ThdRStFrwdSwActv);
             this.groupBox5.Controls.Add(this.SPS_3L_ThdRStExpdSwActv);
-            this.groupBox5.Controls.Add(this.SPS_3L_AcsMdExtRclSwActv);
             this.groupBox5.Location = new System.Drawing.Point(6, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(259, 258);
@@ -1491,7 +1488,7 @@
             // SPS_3L_ThdRwStBkReclnDnwdSwActv
             // 
             this.SPS_3L_ThdRwStBkReclnDnwdSwActv.AutoSize = true;
-            this.SPS_3L_ThdRwStBkReclnDnwdSwActv.Location = new System.Drawing.Point(14, 132);
+            this.SPS_3L_ThdRwStBkReclnDnwdSwActv.Location = new System.Drawing.Point(14, 138);
             this.SPS_3L_ThdRwStBkReclnDnwdSwActv.Name = "SPS_3L_ThdRwStBkReclnDnwdSwActv";
             this.SPS_3L_ThdRwStBkReclnDnwdSwActv.Size = new System.Drawing.Size(78, 17);
             this.SPS_3L_ThdRwStBkReclnDnwdSwActv.TabIndex = 5;
@@ -1502,7 +1499,7 @@
             // SPS_3L_ThdRwStBkReclnUpwdSwActv
             // 
             this.SPS_3L_ThdRwStBkReclnUpwdSwActv.AutoSize = true;
-            this.SPS_3L_ThdRwStBkReclnUpwdSwActv.Location = new System.Drawing.Point(14, 95);
+            this.SPS_3L_ThdRwStBkReclnUpwdSwActv.Location = new System.Drawing.Point(14, 99);
             this.SPS_3L_ThdRwStBkReclnUpwdSwActv.Name = "SPS_3L_ThdRwStBkReclnUpwdSwActv";
             this.SPS_3L_ThdRwStBkReclnUpwdSwActv.Size = new System.Drawing.Size(78, 17);
             this.SPS_3L_ThdRwStBkReclnUpwdSwActv.TabIndex = 4;
@@ -1513,7 +1510,7 @@
             // SPS_3L_ThdRStBkwdSwActv
             // 
             this.SPS_3L_ThdRStBkwdSwActv.AutoSize = true;
-            this.SPS_3L_ThdRStBkwdSwActv.Location = new System.Drawing.Point(14, 58);
+            this.SPS_3L_ThdRStBkwdSwActv.Location = new System.Drawing.Point(14, 60);
             this.SPS_3L_ThdRStBkwdSwActv.Name = "SPS_3L_ThdRStBkwdSwActv";
             this.SPS_3L_ThdRStBkwdSwActv.Size = new System.Drawing.Size(78, 17);
             this.SPS_3L_ThdRStBkwdSwActv.TabIndex = 3;
@@ -1535,33 +1532,21 @@
             // SPS_3L_ThdRStExpdSwActv
             // 
             this.SPS_3L_ThdRStExpdSwActv.AutoSize = true;
-            this.SPS_3L_ThdRStExpdSwActv.Location = new System.Drawing.Point(14, 206);
+            this.SPS_3L_ThdRStExpdSwActv.Location = new System.Drawing.Point(14, 177);
             this.SPS_3L_ThdRStExpdSwActv.Name = "SPS_3L_ThdRStExpdSwActv";
-            this.SPS_3L_ThdRStExpdSwActv.Size = new System.Drawing.Size(104, 17);
+            this.SPS_3L_ThdRStExpdSwActv.Size = new System.Drawing.Size(73, 17);
             this.SPS_3L_ThdRStExpdSwActv.TabIndex = 1;
-            this.SPS_3L_ThdRStExpdSwActv.Text = "折叠电机向下";
+            this.SPS_3L_ThdRStExpdSwActv.Text = "OTF电机";
             this.SPS_3L_ThdRStExpdSwActv.UseVisualStyleBackColor = true;
             this.SPS_3L_ThdRStExpdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3L_ThdRStExpdSwActv_CheckedChanged);
             // 
-            // SPS_3L_AcsMdExtRclSwActv
-            // 
-            this.SPS_3L_AcsMdExtRclSwActv.AutoSize = true;
-            this.SPS_3L_AcsMdExtRclSwActv.Location = new System.Drawing.Point(14, 169);
-            this.SPS_3L_AcsMdExtRclSwActv.Name = "SPS_3L_AcsMdExtRclSwActv";
-            this.SPS_3L_AcsMdExtRclSwActv.Size = new System.Drawing.Size(104, 17);
-            this.SPS_3L_AcsMdExtRclSwActv.TabIndex = 0;
-            this.SPS_3L_AcsMdExtRclSwActv.Text = "折叠电机向上";
-            this.SPS_3L_AcsMdExtRclSwActv.UseVisualStyleBackColor = true;
-            this.SPS_3L_AcsMdExtRclSwActv.CheckedChanged += new System.EventHandler(this.SPS_3L_AcsMdExtRclSwActv_CheckedChanged);
-            // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.SPS_3R_ThdRRtStExpdSwActv);
             this.groupBox6.Controls.Add(this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv);
             this.groupBox6.Controls.Add(this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv);
             this.groupBox6.Controls.Add(this.SPS_3R_ThdRwRtStBkwdSwActv);
             this.groupBox6.Controls.Add(this.SPS_3R_ThdRwRtStFrwdSwActv);
-            this.groupBox6.Controls.Add(this.SPS_3R_ThdRRtStExpdSwActv);
-            this.groupBox6.Controls.Add(this.SPS_3R_AcsMdExtRtRclSwActv);
             this.groupBox6.Location = new System.Drawing.Point(6, 270);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(259, 258);
@@ -1569,32 +1554,43 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "SPS_3R_Req_MSG-0x27";
             // 
+            // SPS_3R_ThdRRtStExpdSwActv
+            // 
+            this.SPS_3R_ThdRRtStExpdSwActv.AutoSize = true;
+            this.SPS_3R_ThdRRtStExpdSwActv.Location = new System.Drawing.Point(14, 182);
+            this.SPS_3R_ThdRRtStExpdSwActv.Name = "SPS_3R_ThdRRtStExpdSwActv";
+            this.SPS_3R_ThdRRtStExpdSwActv.Size = new System.Drawing.Size(73, 17);
+            this.SPS_3R_ThdRRtStExpdSwActv.TabIndex = 7;
+            this.SPS_3R_ThdRRtStExpdSwActv.Text = "OTF电机";
+            this.SPS_3R_ThdRRtStExpdSwActv.UseVisualStyleBackColor = true;
+            this.SPS_3R_ThdRRtStExpdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_ThdRRtStExpdSwActv_CheckedChanged);
+            // 
             // SPS_3R_ThdRwRtStBkReclnDnwdSwActv
             // 
             this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.AutoSize = true;
-            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Location = new System.Drawing.Point(14, 132);
+            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Location = new System.Drawing.Point(14, 142);
             this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Name = "SPS_3R_ThdRwRtStBkReclnDnwdSwActv";
-            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Size = new System.Drawing.Size(78, 17);
-            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.TabIndex = 5;
-            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Text = "靠背向后";
+            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Size = new System.Drawing.Size(104, 17);
+            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.TabIndex = 6;
+            this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Text = "靠背电机向后";
             this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.UseVisualStyleBackColor = true;
             this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_ThdRwRtStBkReclnDnwdSwActv_CheckedChanged);
             // 
             // SPS_3R_ThdRwRtStBkReclnUpwdSwActv
             // 
             this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.AutoSize = true;
-            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Location = new System.Drawing.Point(14, 95);
+            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Location = new System.Drawing.Point(14, 102);
             this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Name = "SPS_3R_ThdRwRtStBkReclnUpwdSwActv";
-            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Size = new System.Drawing.Size(78, 17);
-            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.TabIndex = 4;
-            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Text = "靠背向前";
+            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Size = new System.Drawing.Size(104, 17);
+            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.TabIndex = 5;
+            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Text = "靠背电机向前";
             this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.UseVisualStyleBackColor = true;
-            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv_CheckedChanged);
+            this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_ThdRwRtStBkReclnUpwdSwActv_CheckedChanged_1);
             // 
             // SPS_3R_ThdRwRtStBkwdSwActv
             // 
             this.SPS_3R_ThdRwRtStBkwdSwActv.AutoSize = true;
-            this.SPS_3R_ThdRwRtStBkwdSwActv.Location = new System.Drawing.Point(14, 58);
+            this.SPS_3R_ThdRwRtStBkwdSwActv.Location = new System.Drawing.Point(14, 61);
             this.SPS_3R_ThdRwRtStBkwdSwActv.Name = "SPS_3R_ThdRwRtStBkwdSwActv";
             this.SPS_3R_ThdRwRtStBkwdSwActv.Size = new System.Drawing.Size(78, 17);
             this.SPS_3R_ThdRwRtStBkwdSwActv.TabIndex = 3;
@@ -1612,28 +1608,6 @@
             this.SPS_3R_ThdRwRtStFrwdSwActv.Text = "水平向前";
             this.SPS_3R_ThdRwRtStFrwdSwActv.UseVisualStyleBackColor = true;
             this.SPS_3R_ThdRwRtStFrwdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_ThdRwRtStFrwdSwActv_CheckedChanged);
-            // 
-            // SPS_3R_ThdRRtStExpdSwActv
-            // 
-            this.SPS_3R_ThdRRtStExpdSwActv.AutoSize = true;
-            this.SPS_3R_ThdRRtStExpdSwActv.Location = new System.Drawing.Point(14, 206);
-            this.SPS_3R_ThdRRtStExpdSwActv.Name = "SPS_3R_ThdRRtStExpdSwActv";
-            this.SPS_3R_ThdRRtStExpdSwActv.Size = new System.Drawing.Size(104, 17);
-            this.SPS_3R_ThdRRtStExpdSwActv.TabIndex = 1;
-            this.SPS_3R_ThdRRtStExpdSwActv.Text = "折叠电机向下";
-            this.SPS_3R_ThdRRtStExpdSwActv.UseVisualStyleBackColor = true;
-            this.SPS_3R_ThdRRtStExpdSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_ThdRRtStExpdSwActv_CheckedChanged);
-            // 
-            // SPS_3R_AcsMdExtRtRclSwActv
-            // 
-            this.SPS_3R_AcsMdExtRtRclSwActv.AutoSize = true;
-            this.SPS_3R_AcsMdExtRtRclSwActv.Location = new System.Drawing.Point(14, 169);
-            this.SPS_3R_AcsMdExtRtRclSwActv.Name = "SPS_3R_AcsMdExtRtRclSwActv";
-            this.SPS_3R_AcsMdExtRtRclSwActv.Size = new System.Drawing.Size(104, 17);
-            this.SPS_3R_AcsMdExtRtRclSwActv.TabIndex = 0;
-            this.SPS_3R_AcsMdExtRtRclSwActv.Text = "折叠电机向上";
-            this.SPS_3R_AcsMdExtRtRclSwActv.UseVisualStyleBackColor = true;
-            this.SPS_3R_AcsMdExtRtRclSwActv.CheckedChanged += new System.EventHandler(this.SPS_3R_AcsMdExtRtRclSwActv_CheckedChanged);
             // 
             // groupBox10
             // 
@@ -2708,6 +2682,7 @@
             this.ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.Size = new System.Drawing.Size(59, 13);
             this.ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.TabIndex = 19;
             this.ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.Text = "学习状态";
+            this.ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.Click += new System.EventHandler(this.ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd_Click);
             // 
             // ThdRwLtStCshnFldUpwdDnwdPosV
             // 
@@ -3556,14 +3531,9 @@
         private System.Windows.Forms.CheckBox SPS_3L_ThdRStBkwdSwActv;
         private System.Windows.Forms.CheckBox SPS_3L_ThdRStFrwdSwActv;
         private System.Windows.Forms.CheckBox SPS_3L_ThdRStExpdSwActv;
-        private System.Windows.Forms.CheckBox SPS_3L_AcsMdExtRclSwActv;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckBox SPS_3R_ThdRwRtStBkReclnDnwdSwActv;
-        private System.Windows.Forms.CheckBox SPS_3R_ThdRwRtStBkReclnUpwdSwActv;
         private System.Windows.Forms.CheckBox SPS_3R_ThdRwRtStBkwdSwActv;
         private System.Windows.Forms.CheckBox SPS_3R_ThdRwRtStFrwdSwActv;
-        private System.Windows.Forms.CheckBox SPS_3R_ThdRRtStExpdSwActv;
-        private System.Windows.Forms.CheckBox SPS_3R_AcsMdExtRtRclSwActv;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.Label DrvStCshnRrUpwdDnwdSnsrHmPosLrnd;
         private System.Windows.Forms.Label DrvStCshnRrUpwdDnwdPosV;
@@ -3755,6 +3725,9 @@
         private System.Windows.Forms.TextBox Row1R_Vent_Req;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckBox SPS_3R_ThdRRtStExpdSwActv;
+        private System.Windows.Forms.CheckBox SPS_3R_ThdRwRtStBkReclnDnwdSwActv;
+        private System.Windows.Forms.CheckBox SPS_3R_ThdRwRtStBkReclnUpwdSwActv;
     }
 }
 

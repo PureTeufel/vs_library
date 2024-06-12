@@ -914,8 +914,9 @@ namespace PLinView
                         SecRwRtStCshnRrUpwdDnwdPos.Text = Convert.ToString(Convert.ToDouble(((msg.DATA[1] & 0x03) << 10) | (msg.DATA[2] << 2) | ((msg.DATA[3] & 0xC0) >> 6)) * 0.025);
 
                         SecRwRtStHPassStUpwdDnwdPos.Text = Convert.ToString(Convert.ToDouble(((msg.DATA[3] & 0x0F) << 8) | (msg.DATA[4])) * 0.025);
-                        SecRwRtStLgrstUpwdDnwdPos.Text = Convert.ToString(Convert.ToDouble(((msg.DATA[5] & 0x3F) << 6) | ((msg.DATA[6] & 0xFC) >> 2)) * 0.025);
 #endif
+                        SecRwRtStLgrstUpwdDnwdPos.Text = Convert.ToString(Convert.ToDouble(((msg.DATA[5] & 0x3F) << 6) | ((msg.DATA[6] & 0xFC) >> 2)) * 0.025);
+
                         if ((msg.DATA[1] & 0x08) == 0x08)
                         {
                             SecRwRtStCshnFrntUpwdDnwdPosV.BackColor = Color.Red;
@@ -1054,7 +1055,7 @@ namespace PLinView
                             ThdRwLtStCshnFldUpwdDnwdPosV.BackColor = Color.GreenYellow;
                             ThdRwLtStCshnFldUpwdDnwdPosV.Text = "电机有效";
                         }
-                        if((msg.DATA[5] & 0x80) == 0x80)
+                        if((msg.DATA[5] & 0x40) == 0x40)
                         {
                             ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.BackColor = Color.GreenYellow;
                             ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd.Text = "电机已学习";
@@ -1348,13 +1349,13 @@ namespace PLinView
             tLINFrameEntry[SPS_2L_Req_MSG_Index].Flags = Peak.Lin.PLinApi.FRAME_FLAG_RESPONSE_ENABLE;
 
             /* 2R Seat */
-            Publisher[SPS_2R_Req_MSG_Index].FrameId = 0x17;
+            Publisher[SPS_2R_Req_MSG_Index].FrameId = 0x11;
             Publisher[SPS_2R_Req_MSG_Index].Length = 8;
             Publisher[SPS_2R_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             Publisher[SPS_2R_Req_MSG_Index].ChecksumType =  Peak.Lin.TLINChecksumType.cstEnhanced;
             Publisher[SPS_2R_Req_MSG_Index].Data = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-            tLINFrameEntry[SPS_2R_Req_MSG_Index].FrameId = 0x17;
+            tLINFrameEntry[SPS_2R_Req_MSG_Index].FrameId = 0x11;
             tLINFrameEntry[SPS_2R_Req_MSG_Index].Length = 8;
             tLINFrameEntry[SPS_2R_Req_MSG_Index].Direction = Peak.Lin.TLINDirection.dirPublisher;
             tLINFrameEntry[SPS_2R_Req_MSG_Index].ChecksumType = Peak.Lin.TLINChecksumType.cstEnhanced;
@@ -3159,10 +3160,10 @@ namespace PLinView
                         Publisher[SPS_2R_Req_MSG_Index].Data[2] = (byte)((Sig_SPS_2R_SecRwStFrwdSwActv << 2) | (Sig_SPS_2R_SecRwStBkwdSwActv << 3) | (Sig_SPS_2R_SecRwStBkReclnUpwdSwActv << 4) | (Sig_SPS_2R_SecRwStBkReclnDnwdSwActv << 5) | (Sig_SPS_2R_SecRwStLgrstUpwdSwActv << 6) | (Sig_SPS_2R_SecRwStLgrstDnwdSwActv << 7));
                         Publisher[SPS_2R_Req_MSG_Index].Data[3] = (byte)((Sig_SPS_2R_SecRwStLmbrFrwdSwActv) | (Sig_SPS_2R_SecRwStLmbrBkwdSwActv << 1) | (Sig_SPS_2R_SecRwStLmbrUpwdSwActv << 2) | (Sig_SPS_2R_SecRwStLmbrDnwdSwActv << 3));
                         Publisher[SPS_2R_Req_MSG_Index].Data[4] = 0x0;
-                        Publisher[SPS_2L_Req_MSG_Index].Data[4] = 0x0;
-                        Publisher[SPS_2L_Req_MSG_Index].Data[5] = 0x0;
-                        Publisher[SPS_2L_Req_MSG_Index].Data[6] = 0x0;
-                        Publisher[SPS_2L_Req_MSG_Index].Data[7] = (byte)((Sig_SPS_2R_SecRwStLgextInSwActv << 1) | (Sig_SPS_2R_SecRwStLgextOutSwActv << 2) | (Sig_SPS_2R_SecRwStZgvyUpSwActv << 3) | (Sig_SPS_2R_SecRwStZgvyDownSwActv << 4));
+                        Publisher[SPS_2R_Req_MSG_Index].Data[4] = 0x0;
+                        Publisher[SPS_2R_Req_MSG_Index].Data[5] = 0x0;
+                        Publisher[SPS_2R_Req_MSG_Index].Data[6] = 0x0;
+                        Publisher[SPS_2R_Req_MSG_Index].Data[7] = (byte)((Sig_SPS_2R_SecRwStLgextInSwActv << 1) | (Sig_SPS_2R_SecRwStLgextOutSwActv << 2) | (Sig_SPS_2R_SecRwStZgvyUpSwActv << 3) | (Sig_SPS_2R_SecRwStZgvyDownSwActv << 4));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_2R_Req_MSG_Index]);
                         tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_2R_Req_MSG_Index].FrameId, 0, Publisher[SPS_2R_Req_MSG_Index].Length, Publisher[SPS_2R_Req_MSG_Index].Data);
                     }
@@ -3180,7 +3181,7 @@ namespace PLinView
                     {
                         Publisher[SPS_3R_Req_MSG_Index].Data[0] = 0x0;
                         Publisher[SPS_3R_Req_MSG_Index].Data[1] = 0x0;
-                        Publisher[SPS_3R_Req_MSG_Index].Data[2] = (byte)((Sig_SPS_3R_AcsMdExtRtRclSwActv << 4) | (Sig_SPS_3R_ThdRRtStExpdSwActv << 5) | (Sig_SPS_3R_ThdRwRtStFrwdSwActv << 6) | (Sig_SPS_3R_ThdRwRtStBkwdSwActv << 7) | (Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv << 1) | (Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv << 2));
+                        Publisher[SPS_3R_Req_MSG_Index].Data[2] = (byte)((Sig_SPS_3R_ThdRRtStExpdSwActv << 1) | (Sig_SPS_3R_ThdRwRtStFrwdSwActv << 2) | (Sig_SPS_3R_ThdRwRtStBkwdSwActv << 3) | (Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv << 4) | (Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv << 5));
                         Peak.Lin.PLinApi.SetFrameEntry(m_hClient, m_hHw, ref tLINFrameEntry[SPS_3R_Req_MSG_Index]);
                         tLINError = Peak.Lin.PLinApi.UpdateByteArray(m_hClient, m_hHw, tLINFrameEntry[SPS_3R_Req_MSG_Index].FrameId, 0, Publisher[SPS_3R_Req_MSG_Index].Length, Publisher[SPS_3R_Req_MSG_Index].Data);
                     }
@@ -3605,19 +3606,6 @@ namespace PLinView
             Get_LinData(3);
         }
 
-        private void SPS_3L_AcsMdExtRclSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SPS_3L_AcsMdExtRclSwActv.Checked == true)
-            {
-                Sig_SPS_3L_AcsMdExtRclSwActv = 1;
-            }
-            else
-            {
-                Sig_SPS_3L_AcsMdExtRclSwActv = 0;
-            }
-            Get_LinData(4);
-        }
-
         private void SPS_3L_ThdRwStBkReclnUpwdSwActv_CheckedChanged(object sender, EventArgs e)
         {
             if (SPS_3L_ThdRwStBkReclnUpwdSwActv.Checked == true)
@@ -3683,32 +3671,6 @@ namespace PLinView
             Get_LinData(4);
         }
 
-        private void SPS_3R_AcsMdExtRtRclSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SPS_3R_AcsMdExtRtRclSwActv.Checked == true)
-            {
-                Sig_SPS_3R_AcsMdExtRtRclSwActv = 1;
-            }
-            else
-            {
-                Sig_SPS_3R_AcsMdExtRtRclSwActv = 0;
-            }
-            Get_LinData(5);
-        }
-
-        private void SPS_3R_ThdRwRtStBkReclnUpwdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Checked == true)
-            {
-                Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv = 1;
-            }
-            else
-            {
-                Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv = 0;
-            }
-            Get_LinData(5);
-        }
-
         private void SPS_3R_ThdRwRtStBkwdSwActv_CheckedChanged(object sender, EventArgs e)
         {
             if (SPS_3R_ThdRwRtStBkwdSwActv.Checked == true)
@@ -3731,32 +3693,6 @@ namespace PLinView
             else
             {
                 Sig_SPS_3R_ThdRwRtStFrwdSwActv = 0;
-            }
-            Get_LinData(5);
-        }
-
-        private void SPS_3R_ThdRRtStExpdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SPS_3R_ThdRRtStExpdSwActv.Checked == true)
-            {
-                Sig_SPS_3R_ThdRRtStExpdSwActv = 1;
-            }
-            else
-            {
-                Sig_SPS_3R_ThdRRtStExpdSwActv = 0;
-            }
-            Get_LinData(5);
-        }
-
-        private void SPS_3R_ThdRwRtStBkReclnDnwdSwActv_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Checked == true)
-            {
-                Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv = 1;
-            }
-            else
-            {
-                Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv = 0;
             }
             Get_LinData(5);
         }
@@ -4672,17 +4608,25 @@ namespace PLinView
             {
                 b = false;
             }
-
-            while (idx < str.Length)
+            else if ((str.Length > 3) || ((str.Length == 3) && ((str[0] > '2') || ((str[0] == '2') && (str[1] > '5')) || ((str[0] == '2') && (str[1] == '5') && (str[2] > '5')))))
             {
-                if ((str[idx] <  '0') || (str[idx] > '9'))
-                {
-                    MessageBox.Show("输入格式有误!");
-                    b = false;
-                    break;
-                }
+                MessageBox.Show("输入值无效，范围在0~255之间");
+                b = false;
+            }
+            else
+            {
 
-                idx++;
+                while (idx < str.Length)
+                {
+                    if ((str[idx] < '0') || (str[idx] > '9'))
+                    {
+                        MessageBox.Show("输入格式有误!");
+                        b = false;
+                        break;
+                    }
+
+                    idx++;
+                }
             }
 
             return b;
@@ -4776,6 +4720,50 @@ namespace PLinView
             }
 
             Get_CanData(2);
+        }
+
+        private void ThdRwLtStCshnFldUpwdDnwdSnsrHmPosLrnd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SPS_3R_ThdRwRtStBkReclnUpwdSwActv_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (SPS_3R_ThdRwRtStBkReclnUpwdSwActv.Checked == true)
+            {
+                Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv = 1;
+            }
+            else
+            {
+                Sig_SPS_3R_ThdRwRtStBkReclnUpwdSwActv = 0;
+            }
+            Get_LinData(5);
+        }
+
+        private void SPS_3R_ThdRwRtStBkReclnDnwdSwActv_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SPS_3R_ThdRwRtStBkReclnDnwdSwActv.Checked == true)
+            {
+                Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv = 1;
+            }
+            else
+            {
+                Sig_SPS_3R_ThdRwRtStBkReclnDnwdSwActv = 0;
+            }
+            Get_LinData(5);
+        }
+
+        private void SPS_3R_ThdRRtStExpdSwActv_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SPS_3R_ThdRRtStExpdSwActv.Checked == true)
+            {
+                Sig_SPS_3R_ThdRRtStExpdSwActv = 1;
+            }
+            else
+            {
+                Sig_SPS_3R_ThdRRtStExpdSwActv = 0;
+            }
+            Get_LinData(5);
         }
     }
 }
