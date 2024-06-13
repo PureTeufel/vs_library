@@ -48,6 +48,7 @@ namespace PLinView
         const UInt16 NetWork_Index = 2;
         const UInt16 First_Row_Seat_Heat_Cool_Duty_Cycle_Control = 3;
         const UInt16 Second_Row_Seat_Heat_Cool_Duty_Cycle_Control = 4;
+        const UInt16 Third_Row_Seat_Heat_Cool_Duty_Cycle_Control = 5;
 
         TPCANMsg[] Msg_To_Send = new TPCANMsg[6];
         byte[] MsgSend_Data = new byte[50];
@@ -210,6 +211,13 @@ namespace PLinView
         byte Sig428_SecRwLtStHtCshnDtyCycl = 0;
         byte Sig428_SecRwLtStHtBkDtyCycl = 0;
         byte Sig428_SecRwLtStVntDtyCycl = 0;
+
+        byte Sig488_Row3RwRtStHtCshnDtyCycl = 0;
+        byte Sig488_Row3RwRtStHtBkDtyCycl = 0;
+        byte Sig488_Row3RwRtStVntDtyCycl = 0;
+        byte Sig488_Row3RwLtStHtCshnDtyCycl = 0;
+        byte Sig488_Row3RwLtStHtBkDtyCycl = 0;
+        byte Sig488_Row3RwLtStVntDtyCycl = 0;
 
 
 
@@ -383,6 +391,7 @@ namespace PLinView
                 {
                     PCANBasic.Write(PCANBasic.PCAN_USBBUS1, ref Msg_To_Send[First_Row_Seat_Heat_Cool_Duty_Cycle_Control]);
                     PCANBasic.Write(PCANBasic.PCAN_USBBUS1, ref Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control]);
+                    PCANBasic.Write(PCANBasic.PCAN_USBBUS1, ref Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control]);
                 }
                 if (timer_counter >= 200)
                 {
@@ -1242,7 +1251,7 @@ namespace PLinView
 
                         }
                     }
-                    if(msg.ID == 0x461)
+                    if(msg.ID == 0x466)
                     {
                         SecRwLtStHtVntDtyCyclStat.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
                         SecRwRtStHtVntDtyCyclStat.SelectedIndex = SecRwLtStHtVntDtyCyclStat.SelectedIndex;
@@ -1258,6 +1267,14 @@ namespace PLinView
                     if (msg.ID == 0x473)
                     { 
                         Row1R_Heat_Vent_Status.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
+                    }
+                    if (msg.ID == 0x46A)
+                    {
+                        Row3L_Heat_Vent_Status.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
+                    }
+                    if (msg.ID == 0x46E)
+                    {
+                        Row3R_Heat_Vent_Status.SelectedIndex = (byte)((msg.DATA[0] & 0xF0) >> 4);
                     }
                 }
             }
@@ -1432,6 +1449,12 @@ namespace PLinView
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].LEN = 8;
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].MSGTYPE = TPCANMessageType.PCAN_MESSAGE_STANDARD;
             Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+            Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control] = new TPCANMsg();
+            Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].ID = 0x488;
+            Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].LEN = 8;
+            Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].MSGTYPE = TPCANMessageType.PCAN_MESSAGE_STANDARD;
+            Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA = new byte[8] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         }
 
 
@@ -3232,6 +3255,17 @@ namespace PLinView
                         Msg_To_Send[Second_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[5] = (byte)(Sig426_SecRwLtStVntDtyCycl);
                     }
                     break;
+
+                case 4:
+                    {
+                        Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[0] = (byte)(Sig488_Row3RwRtStHtCshnDtyCycl);
+                        Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[1] = (byte)(Sig488_Row3RwRtStHtBkDtyCycl);
+                        Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[2] = (byte)(Sig488_Row3RwRtStVntDtyCycl);
+                        Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[3] = (byte)(Sig488_Row3RwLtStHtCshnDtyCycl);
+                        Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[4] = (byte)(Sig488_Row3RwLtStHtBkDtyCycl);
+                        Msg_To_Send[Third_Row_Seat_Heat_Cool_Duty_Cycle_Control].DATA[5] = (byte)(Sig488_Row3RwLtStVntDtyCycl);
+                    }
+                    break;
             }
 
         }
@@ -4359,53 +4393,6 @@ namespace PLinView
             Get_CanData(1);
         }
 
-        private void L_SecRwLtStArmScrnHMI2LReq_CheckedChanged(object sender, EventArgs e)
-        {
-            Get_CanData(0);
-        }
-
-        private void R_SecRwRtStArmScrnHMI2RReq_CheckedChanged(object sender, EventArgs e)
-        {
-            Get_CanData(1);
-        }
-
-        private void SecRwLtStHtDtyCycl_CheckedChanged(object sender, EventArgs e)
-        {
-            Sig426_SecRwLtStHtCshnDtyCycl = 0xE5;
-            Sig426_SecRwLtStHtBkDtyCycl = 0xE5;
-            Get_CanData(2);
-        }
-
-        private void SecRwLtStVntDtyCycl_CheckedChanged(object sender, EventArgs e)
-        {
-            
-            {
-                Sig426_SecRwLtStVntDtyCycl = 0xE5;
-            }
-
-            Get_CanData(2);
-        }
-
-        private void SecRwRtStHtDtyCycl_CheckedChanged(object sender, EventArgs e)
-        {
-            {
-                Sig426_SecRwRtStHtCshnDtyCycl = 0xE5;
-                Sig426_SecRwRtStHtBkDtyCycl = 0xE5;
-            }
-
-            Get_CanData(2);
-        }
-
-        private void SecRwRtStVntDtyCycl_CheckedChanged(object sender, EventArgs e)
-        {
-
-            {
-                Sig426_SecRwRtStVntDtyCycl = 0xE5;
-            }
-
-            Get_CanData(2);
-        }
-
         private void label15_Click(object sender, EventArgs e)
         {
 
@@ -4573,8 +4560,8 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(SecRwLtStHtDtyCycl.Text) == true)
             {
-                Sig426_SecRwLtStHtCshnDtyCycl = Convert.ToByte(SecRwLtStHtDtyCycl.Text);
-                Sig426_SecRwLtStHtBkDtyCycl = Convert.ToByte(SecRwLtStHtDtyCycl.Text);
+                Sig426_SecRwLtStHtCshnDtyCycl = (byte)(Convert.ToByte(SecRwLtStHtDtyCycl.Text) * 255 / 100);
+                Sig426_SecRwLtStHtBkDtyCycl = (byte)(Convert.ToByte(SecRwLtStHtDtyCycl.Text) * 255 / 100);
             }
             else
             {
@@ -4589,7 +4576,7 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(SecRwLtStVntDtyCycl.Text) == true)
             {
-                Sig426_SecRwLtStVntDtyCycl = Convert.ToByte(SecRwLtStVntDtyCycl.Text);
+                Sig426_SecRwLtStVntDtyCycl = (byte)(Convert.ToByte(SecRwLtStVntDtyCycl.Text) * 255 / 100);
             }
             else
             {
@@ -4608,9 +4595,9 @@ namespace PLinView
             {
                 b = false;
             }
-            else if ((str.Length > 3) || ((str.Length == 3) && ((str[0] > '2') || ((str[0] == '2') && (str[1] > '5')) || ((str[0] == '2') && (str[1] == '5') && (str[2] > '5')))))
+            else if ((str.Length > 3) || ((str.Length == 3) && ((str[0] > '1') || ((str[0] == '1') && (str[1] > '0')) || ((str[0] == '1') && (str[1] == '0') && (str[2] > '0')))))
             {
-                MessageBox.Show("输入值无效，范围在0~255之间");
+                MessageBox.Show("输入值无效，范围在0~100之间");
                 b = false;
             }
             else
@@ -4620,7 +4607,7 @@ namespace PLinView
                 {
                     if ((str[idx] < '0') || (str[idx] > '9'))
                     {
-                        MessageBox.Show("输入格式有误!");
+                        MessageBox.Show("输入格式有误!输入值应为数字，范围在0~100之间");
                         b = false;
                         break;
                     }
@@ -4636,8 +4623,8 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(SecRwRtStHtDtyCycl.Text) == true)
             {
-                Sig426_SecRwRtStHtCshnDtyCycl = Convert.ToByte(SecRwRtStHtDtyCycl.Text);
-                Sig426_SecRwRtStHtBkDtyCycl = Convert.ToByte(SecRwRtStHtDtyCycl.Text);
+                Sig426_SecRwRtStHtCshnDtyCycl = (byte)(Convert.ToByte(SecRwRtStHtDtyCycl.Text) * 255 / 100);
+                Sig426_SecRwRtStHtBkDtyCycl = (byte)(Convert.ToByte(SecRwRtStHtDtyCycl.Text) * 255 / 100);
             }
             else
             {
@@ -4652,7 +4639,7 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(SecRwRtStVntDtyCycl.Text) == true)
             {
-                Sig426_SecRwRtStVntDtyCycl = Convert.ToByte(SecRwRtStVntDtyCycl.Text);
+                Sig426_SecRwRtStVntDtyCycl = (byte)(Convert.ToByte(SecRwRtStVntDtyCycl.Text) * 255 /100);
             }
             else
             {
@@ -4666,8 +4653,8 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(Row1L_Heat_Req.Text) == true)
             {
-                Sig429_Row1RwLtStHtCshnDtyCycl = Convert.ToByte(Row1L_Heat_Req.Text);
-                Sig429_Row1RwLtStHtBkDtyCycl = Convert.ToByte(Row1L_Heat_Req.Text);
+                Sig429_Row1RwLtStHtCshnDtyCycl = (byte)(Convert.ToByte(Row1L_Heat_Req.Text) * 255 / 100);
+                Sig429_Row1RwLtStHtBkDtyCycl = (byte)(Convert.ToByte(Row1L_Heat_Req.Text) * 255 / 100);
             }
             else
             {
@@ -4682,7 +4669,7 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(Row1L_Vent_Req.Text) == true)
             {
-                Sig429_Row1RwLtStVntDtyCycl = Convert.ToByte(Row1L_Vent_Req.Text);
+                Sig429_Row1RwLtStVntDtyCycl = (byte)(Convert.ToByte(Row1L_Vent_Req.Text) * 255 /100);
             }
             else
             {
@@ -4696,13 +4683,13 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(Row1R_Heat_Req.Text) == true)
             {
-                Sig429_Row1RwLtStHtCshnDtyCycl = Convert.ToByte(Row1R_Heat_Req.Text);
-                Sig429_Row1RwLtStHtBkDtyCycl = Convert.ToByte(Row1R_Heat_Req.Text);
+                Sig429_Row1RwRtStHtCshnDtyCycl = (byte)(Convert.ToByte(Row1R_Heat_Req.Text) * 255 / 100);
+                Sig429_Row1RwRtStHtBkDtyCycl = (byte)(Convert.ToByte(Row1R_Heat_Req.Text) * 255 / 100);
             }
             else
             {
-                Sig429_Row1RwLtStHtCshnDtyCycl = 0x0;
-                Sig429_Row1RwLtStHtBkDtyCycl = 0x0;
+                Sig429_Row1RwRtStHtCshnDtyCycl = 0x0;
+                Sig429_Row1RwRtStHtBkDtyCycl = 0x0;
             }
 
             Get_CanData(2);
@@ -4712,7 +4699,7 @@ namespace PLinView
         {
             if (CheckInputFormatIsValid(Row1R_Vent_Req.Text) == true)
             {
-                Sig429_Row1RwRtStVntDtyCycl = Convert.ToByte(Row1R_Vent_Req.Text);
+                Sig429_Row1RwRtStVntDtyCycl = (byte)(Convert.ToByte(Row1R_Vent_Req.Text) * 255 / 100);
             }
             else
             {
@@ -4764,6 +4751,66 @@ namespace PLinView
                 Sig_SPS_3R_ThdRRtStExpdSwActv = 0;
             }
             Get_LinData(5);
+        }
+
+        private void Row3L_Heat_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row3L_Heat_Req.Text) == true)
+            {
+                Sig488_Row3RwLtStHtCshnDtyCycl = (byte)(Convert.ToByte(Row3L_Heat_Req.Text) * 255 / 100);
+                Sig488_Row3RwLtStHtBkDtyCycl = (byte)(Convert.ToByte(Row3L_Heat_Req.Text) * 255 / 100);
+            }
+            else
+            {
+                Sig488_Row3RwLtStHtCshnDtyCycl = 0x0;
+                Sig488_Row3RwLtStHtBkDtyCycl = 0x0;
+            }
+
+            Get_CanData(4);
+        }
+
+        private void Row3L_Vent_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row3L_Vent_Req.Text) == true)
+            {
+                Sig488_Row3RwLtStVntDtyCycl = (byte)(Convert.ToByte(Row3L_Vent_Req.Text) * 255 / 100);
+            }
+            else
+            {
+                Sig488_Row3RwLtStVntDtyCycl = 0x0;
+            }
+
+            Get_CanData(4);
+        }
+
+        private void Row3R_Heat_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row3R_Heat_Req.Text) == true)
+            {
+                Sig488_Row3RwRtStHtCshnDtyCycl = (byte)(Convert.ToByte(Row3R_Heat_Req.Text) * 255 / 100);
+                Sig488_Row3RwRtStHtBkDtyCycl = (byte)(Convert.ToByte(Row3R_Heat_Req.Text) * 255 / 100);
+            }
+            else
+            {
+                Sig488_Row3RwRtStHtCshnDtyCycl = 0x0;
+                Sig488_Row3RwRtStHtBkDtyCycl = 0x0;
+            }
+
+            Get_CanData(4);
+        }
+
+        private void Row3R_Vent_Req_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckInputFormatIsValid(Row3R_Vent_Req.Text) == true)
+            {
+                Sig488_Row3RwRtStVntDtyCycl = (byte)(Convert.ToByte(Row3R_Vent_Req.Text) * 255 / 100);
+            }
+            else
+            {
+                Sig488_Row3RwRtStVntDtyCycl = 0x0;
+            }
+
+            Get_CanData(4);
         }
     }
 }
